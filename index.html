@@ -1,8 +1,9 @@
+
 <!DOCTYPE html>
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>Dijital Reklam TV PRO</title>
+<title>Dijital Reklam TV</title>
 
 <style>
 body{
@@ -26,15 +27,14 @@ header{
 }
 
 .menu{
-    width:30%;
+    width:25%;
     background:#1a1a1a;
     padding:15px;
     box-sizing:border-box;
-    overflow:auto;
 }
 
 .screen{
-    width:70%;
+    width:75%;
     display:flex;
     align-items:center;
     justify-content:center;
@@ -57,101 +57,35 @@ button:hover{
     background:red;
 }
 
-input, select{
-    width:100%;
-    padding:10px;
-    margin-top:8px;
-    border:none;
-    border-radius:5px;
-}
-
 video{
     width:100%;
     height:100%;
     object-fit:cover;
-}
-
-#stats{
-    background:#222;
-    padding:10px;
-    margin-bottom:10px;
-    border-radius:6px;
 }
 </style>
 </head>
 
 <body>
 
-<header>📺 DİJİTAL REKLAM TV PRO</header>
+<header>📺 DİJİTAL REKLAM TV</header>
 
 <div class="container">
 
-<!-- SOL PANEL -->
 <div class="menu">
+    <h3>Kategoriler</h3>
 
-<div id="stats">
-👁 Ziyaretçi: <span id="visitors">1453</span><br>
-📊 Sistem: Aktif
+    <button onclick="setCategory('araba')">🚗 Araba</button>
+    <button onclick="setCategory('teknoloji')">📱 Teknoloji</button>
+    <button onclick="setCategory('trend')">🛍 Trend Ürün</button>
+    <button onclick="setCategory('yerel')">🏪 Yerel</button>
+
+    <hr>
+
+    <p style="font-size:12px;">
+        Sistem demo versiyonudur. Reklamlar kategoriye göre oynatılır.
+    </p>
 </div>
 
-<h3>📢 Reklam Ver</h3>
-
-<label>Kategori</label>
-<select id="kategori">
-
-    <!-- ✔ SENİN TÜM KATEGORİLERİN -->
-    <option value="mobilya">🏠 Mobilya</option>
-    <option value="aksesuar">👜 Aksesuar</option>
-    <option value="giyim">👕 Giyim / Tekstil</option>
-    <option value="urun">🛍 Ürün</option>
-    <option value="bijuteri">💍 Takı / Bijuteri</option>
-    <option value="canta">👜 Çanta</option>
-    <option value="teknik">🔧 Teknik Servis</option>
-    <option value="dekorasyon">🏡 Dekorasyon</option>
-    <option value="tamir">🛠 Tamir / Tadilat</option>
-    <option value="tasimacilik">🚚 Taşımacılık</option>
-    <option value="nakliye">📦 Nakliye</option>
-    <option value="uretim">🏭 Üretim</option>
-    <option value="market">🛒 Market</option>
-    <option value="kisisel">🧴 Kişisel</option>
-
-</select>
-
-<label>Süre</label>
-<select id="sure">
-    <option value="gunluk">Günlük</option>
-    <option value="haftalik">Haftalık</option>
-    <option value="aylik">Aylık</option>
-</select>
-
-<button onclick="fiyatHesapla()">💰 Fiyat Hesapla</button>
-
-<p id="fiyat" style="margin-top:10px;"></p>
-
-<button onclick="reklamGonder()">📲 WhatsApp ile Reklam Ver</button>
-
-<hr>
-
-<h3>Kategoriler</h3>
-
-<button onclick="setCategory('mobilya')">🏠 Mobilya</button>
-<button onclick="setCategory('aksesuar')">👜 Aksesuar</button>
-<button onclick="setCategory('giyim')">👕 Giyim</button>
-<button onclick="setCategory('urun')">🛍 Ürün</button>
-<button onclick="setCategory('bijuteri')">💍 Bijuteri</button>
-<button onclick="setCategory('canta')">👜 Çanta</button>
-<button onclick="setCategory('teknik')">🔧 Teknik</button>
-<button onclick="setCategory('dekorasyon')">🏡 Dekorasyon</button>
-<button onclick="setCategory('tamir')">🛠 Tamir</button>
-<button onclick="setCategory('tasimacilik')">🚚 Taşımacılık</button>
-<button onclick="setCategory('nakliye')">📦 Nakliye</button>
-<button onclick="setCategory('uretim')">🏭 Üretim</button>
-<button onclick="setCategory('market')">🛒 Market</button>
-<button onclick="setCategory('kisisel')">🧴 Kişisel</button>
-
-</div>
-
-<!-- SAĞ PANEL -->
 <div class="screen">
     <video id="player" autoplay muted></video>
 </div>
@@ -160,117 +94,49 @@ video{
 
 <script>
 
-// 🎥 REKLAM SİSTEMİ
+// 🔥 REKLAM VERİLERİ (sonra sen değiştireceksin)
 let ads = {
-    mobilya:[],
-    aksesuar:[],
-    giyim:[],
-    urun:[],
-    bijuteri:[],
-    canta:[],
-    teknik:[],
-    dekorasyon:[],
-    tamir:[],
-    tasimacilik:[],
-    nakliye:[],
-    uretim:[],
-    market:[],
-    kisisel:[]
+    araba: [
+        "https://www.w3schools.com/html/mov_bbb.mp4"
+    ],
+    teknoloji: [
+        "https://www.w3schools.com/html/movie.mp4"
+    ],
+    trend: [],
+    yerel: []
 };
 
-let currentCategory="mobilya";
-let index=0;
+let currentCategory = "araba";
+let index = 0;
 
 function setCategory(cat){
-    currentCategory=cat;
-    index=0;
+    currentCategory = cat;
+    index = 0;
     play();
 }
 
 function play(){
-    let list=ads[currentCategory];
-    let video=document.getElementById("player");
+    let list = ads[currentCategory];
+    let video = document.getElementById("player");
 
-    if(list.length===0){
-        setTimeout(play,2000);
+    if(list.length === 0){
+        setTimeout(play, 2000);
         return;
     }
 
-    video.src=list[index];
+    video.src = list[index];
     video.play();
 
-    video.onended=function(){
+    video.onended = function(){
         index++;
-        if(index>=list.length) index=0;
+        if(index >= list.length){
+            index = 0;
+        }
         play();
     }
 }
 
 play();
-
-
-// 💰 FİYAT SİSTEMİ
-function fiyatHesapla(){
-    let kategori=document.getElementById("kategori").value;
-    let sure=document.getElementById("sure").value;
-
-    let fiyat=170;
-
-    let multiplier=1;
-
-    if(kategori=="mobilya") multiplier=2;
-    if(kategori=="aksesuar") multiplier=1.8;
-    if(kategori=="giyim") multiplier=2;
-    if(kategori=="urun") multiplier=2;
-    if(kategori=="bijuteri") multiplier=1.8;
-    if(kategori=="canta") multiplier=1.8;
-    if(kategori=="teknik") multiplier=2.2;
-    if(kategori=="dekorasyon") multiplier=2;
-    if(kategori=="tamir") multiplier=2;
-    if(kategori=="tasimacilik") multiplier=2.5;
-    if(kategori=="nakliye") multiplier=2.5;
-    if(kategori=="uretim") multiplier=2.3;
-    if(kategori=="market") multiplier=1.5;
-    if(kategori=="kisisel") multiplier=1.5;
-
-    fiyat *= multiplier;
-
-    if(sure=="haftalik") fiyat *= 4;
-    if(sure=="aylik") fiyat *= 30;
-
-    document.getElementById("fiyat").innerHTML="💰 Tahmini: "+Math.round(fiyat)+" TL";
-}
-
-
-// 📲 WHATSAPP
-function reklamGonder(){
-    let kategori=document.getElementById("kategori").value;
-    let sure=document.getElementById("sure").value;
-
-    let mesaj=
-`Merhaba, Dijital Reklam TV üzerinden reklam vermek istiyorum.
-
-Kategori: ${kategori}
-Süre: ${sure}
-Günlük başlangıç: 170 TL
-
-Detay rica ediyorum.`;
-
-    let numara="905074163605";
-
-    let url="https://wa.me/"+numara+"?text="+encodeURIComponent(mesaj);
-
-    window.open(url,"_blank");
-}
-
-
-// 👁 ZİYARETÇİ
-let visitors=1453;
-
-setInterval(()=>{
-    visitors += Math.floor(Math.random()*2);
-    document.getElementById("visitors").innerText=visitors;
-},5000);
 
 </script>
 
