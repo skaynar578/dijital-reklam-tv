@@ -92,24 +92,29 @@ video{
 
 <div id="stats">
 👁 Ziyaretçi: <span id="visitors">1453</span><br>
-📊 Aktif Sistem: Online
+📊 Sistem: Aktif
 </div>
 
 <h3>📢 Reklam Ver</h3>
 
 <label>Kategori</label>
 <select id="kategori">
-    <option value="araba">🚗 Araba / Otomotiv</option>
-    <option value="teknoloji">📱 Teknoloji</option>
-    <option value="mobilya">🏠 Mobilya & Dekor</option>
-    <option value="tekstil">👕 Giyim & Tekstil</option>
-    <option value="aksesuar">👜 Çanta & Aksesuar</option>
-    <option value="bijuteri">💍 Takı & Bijuteri</option>
+
+    <option value="mobilya">🏠 Mobilya</option>
+    <option value="aksesuar">👜 Aksesuar</option>
+    <option value="giyim">👕 Giyim / Tekstil</option>
+    <option value="urun">🛍 Ürün</option>
+    <option value="bijuteri">💍 Takı / Bijuteri</option>
+    <option value="canta">👜 Çanta</option>
     <option value="teknik">🔧 Teknik Servis</option>
+    <option value="dekorasyon">🏡 Dekorasyon</option>
+    <option value="tamir">🛠 Tamir / Tadilat</option>
     <option value="tasimacilik">🚚 Taşımacılık</option>
+    <option value="nakliye">📦 Nakliye</option>
     <option value="uretim">🏭 Üretim</option>
     <option value="market">🛒 Market</option>
-    <option value="muzik">🎵 Müzik</option>
+    <option value="kisisel">🧴 Kişisel</option>
+
 </select>
 
 <label>Süre</label>
@@ -129,11 +134,11 @@ video{
 
 <h3>Kategoriler</h3>
 
-<button onclick="setCategory('araba')">🚗 Araba</button>
-<button onclick="setCategory('teknoloji')">📱 Teknoloji</button>
 <button onclick="setCategory('mobilya')">🏠 Mobilya</button>
-<button onclick="setCategory('tekstil')">👕 Tekstil</button>
-<button onclick="setCategory('muzik')">🎵 Müzik</button>
+<button onclick="setCategory('giyim')">👕 Giyim</button>
+<button onclick="setCategory('teknik')">🔧 Teknik Servis</button>
+<button onclick="setCategory('tasimacilik')">🚚 Taşımacılık</button>
+<button onclick="setCategory('market')">🛒 Market</button>
 
 </div>
 
@@ -146,22 +151,25 @@ video{
 
 <script>
 
-// 🎥 REKLAM TV
+// 🎥 REKLAM SİSTEMİ
 let ads = {
-    araba:["https://www.w3schools.com/html/mov_bbb.mp4"],
-    teknoloji:["https://www.w3schools.com/html/movie.mp4"],
     mobilya:[],
-    tekstil:[],
     aksesuar:[],
+    giyim:[],
+    urun:[],
     bijuteri:[],
+    canta:[],
     teknik:[],
+    dekorasyon:[],
+    tamir:[],
     tasimacilik:[],
+    nakliye:[],
     uretim:[],
     market:[],
-    muzik:["https://www.w3schools.com/html/movie.mp4"]
+    kisisel:[]
 };
 
-let currentCategory="araba";
+let currentCategory="mobilya";
 let index=0;
 
 function setCategory(cat){
@@ -192,33 +200,40 @@ function play(){
 play();
 
 
-// 💰 FİYAT SİSTEMİ (GÜNCEL)
+// 💰 FİYAT SİSTEMİ
 function fiyatHesapla(){
     let kategori=document.getElementById("kategori").value;
     let sure=document.getElementById("sure").value;
 
-    let fiyat=170; // günlük başlangıç
+    let fiyat=170;
 
-    if(kategori=="araba") fiyat*=3;
-    if(kategori=="teknoloji") fiyat*=2.5;
-    if(kategori=="mobilya") fiyat*=2;
-    if(kategori=="tekstil") fiyat*=2;
-    if(kategori=="aksesuar") fiyat*=1.8;
-    if(kategori=="bijuteri") fiyat*=1.8;
-    if(kategori=="teknik") fiyat*=2.2;
-    if(kategori=="tasimacilik") fiyat*=2.5;
-    if(kategori=="uretim") fiyat*=2.3;
-    if(kategori=="market") fiyat*=1.5;
-    if(kategori=="muzik") fiyat*=2;
+    let multiplier=1;
 
-    if(sure=="haftalik") fiyat*=4;
-    if(sure=="aylik") fiyat*=30;
+    if(kategori=="mobilya") multiplier=2;
+    if(kategori=="aksesuar") multiplier=1.8;
+    if(kategori=="giyim") multiplier=2;
+    if(kategori=="urun") multiplier=2;
+    if(kategori=="bijuteri") multiplier=1.8;
+    if(kategori=="canta") multiplier=1.8;
+    if(kategori=="teknik") multiplier=2.2;
+    if(kategori=="dekorasyon") multiplier=2;
+    if(kategori=="tamir") multiplier=2;
+    if(kategori=="tasimacilik") multiplier=2.5;
+    if(kategori=="nakliye") multiplier=2.5;
+    if(kategori=="uretim") multiplier=2.3;
+    if(kategori=="market") multiplier=1.5;
+    if(kategori=="kisisel") multiplier=1.5;
 
-    document.getElementById("fiyat").innerHTML="💰 Tahmini Fiyat: "+Math.round(fiyat)+" TL";
+    fiyat *= multiplier;
+
+    if(sure=="haftalik") fiyat *= 4;
+    if(sure=="aylik") fiyat *= 30;
+
+    document.getElementById("fiyat").innerHTML="💰 Tahmini: "+Math.round(fiyat)+" TL";
 }
 
 
-// 📲 WHATSAPP SİSTEMİ
+// 📲 WHATSAPP
 function reklamGonder(){
     let kategori=document.getElementById("kategori").value;
     let sure=document.getElementById("sure").value;
@@ -230,7 +245,7 @@ Kategori: ${kategori}
 Süre: ${sure}
 Günlük başlangıç: 170 TL
 
-Detaylı bilgi rica ediyorum.`;
+Detay rica ediyorum.`;
 
     let numara="905074163605";
 
@@ -240,11 +255,11 @@ Detaylı bilgi rica ediyorum.`;
 }
 
 
-// 👁 ZİYARETÇİ SİMÜLASYONU
+// 👁 ZİYARETÇİ
 let visitors=1453;
 
 setInterval(()=>{
-    visitors += Math.floor(Math.random()*3);
+    visitors += Math.floor(Math.random()*2);
     document.getElementById("visitors").innerText=visitors;
 },5000);
 
