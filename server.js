@@ -6,23 +6,29 @@ app.use(express.json());
 
 let ads = [];
 
+// 📦 VERİYİ DOSYADAN YÜKLE
+if (fs.existsSync("ads.json")) {
+    ads = JSON.parse(fs.readFileSync("ads.json"));
+}
+
 /*
 REKLAM MODELİ:
 {
+  id,
   title,
   category,
   videoUrl,
   duration,
-  price
+  price,
+  createdAt
 }
 */
 
-// 💰 SABİT FİYAT SİSTEMİ
+// 💰 FİYAT HESAPLAMA SİSTEMİ
 function calculatePrice(category, duration){
 
     let base = 170; // günlük başlangıç
 
-    // kategori çarpanları
     let multipliers = {
         araba: 3,
         teknoloji: 2.5,
@@ -43,7 +49,6 @@ function calculatePrice(category, duration){
 
     let price = base * (multipliers[category] || 1);
 
-    // süre hesap
     if(duration === "haftalik") price *= 4;
     if(duration === "aylik") price *= 30;
 
@@ -70,7 +75,7 @@ app.post("/add", (req, res) => {
     fs.writeFileSync("ads.json", JSON.stringify(ads, null, 2));
 
     res.json({
-        message: "Reklam eklendi",
+        message: "✔ Reklam eklendi",
         ad: newAd
     });
 });
@@ -80,7 +85,7 @@ app.get("/ads", (req, res) => {
     res.json(ads);
 });
 
-// 📂 KATEGORİYE GÖRE
+// 📂 KATEGORİ FİLTRE
 app.get("/ads/:category", (req, res) => {
     let filtered = ads.filter(a => a.category === req.params.category);
     res.json(filtered);
@@ -94,5 +99,5 @@ app.get("/categories", (req, res) => {
 
 // 🚀 SERVER START
 app.listen(3000, () => {
-    console.log("Dijital Reklam TV FULL SERVER çalışıyor");
+    console.log("🔥 DİJİTAL REKLAM TV PRO SERVER AKTİF");
 });
