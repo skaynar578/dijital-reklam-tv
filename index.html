@@ -2,7 +2,7 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>Dijital Reklam TV</title>
+<title>Dijital Reklam TV PRO</title>
 
 <style>
 body{
@@ -26,14 +26,15 @@ header{
 }
 
 .menu{
-    width:25%;
+    width:30%;
     background:#1a1a1a;
     padding:15px;
     box-sizing:border-box;
+    overflow:auto;
 }
 
 .screen{
-    width:75%;
+    width:70%;
     display:flex;
     align-items:center;
     justify-content:center;
@@ -56,6 +57,14 @@ button:hover{
     background:red;
 }
 
+input, select{
+    width:100%;
+    padding:10px;
+    margin-top:8px;
+    border:none;
+    border-radius:5px;
+}
+
 video{
     width:100%;
     height:100%;
@@ -66,26 +75,50 @@ video{
 
 <body>
 
-<header>📺 DİJİTAL REKLAM TV</header>
+<header>📺 DİJİTAL REKLAM TV PRO</header>
 
 <div class="container">
 
+<!-- SOL PANEL -->
 <div class="menu">
-    <h3>Kategoriler</h3>
 
-    <button onclick="setCategory('araba')">🚗 Araba</button>
-    <button onclick="setCategory('teknoloji')">📱 Teknoloji</button>
-    <button onclick="setCategory('trend')">🛍 Trend Ürün</button>
-    <button onclick="setCategory('yerel')">🏪 Yerel</button>
-    <button onclick="setCategory('muzik')">🎵 Müzik</button>
+<h3>📢 Reklam Ver</h3>
 
-    <hr>
+<label>Kategori</label>
+<select id="kategori">
+    <option value="araba">Araba</option>
+    <option value="teknoloji">Teknoloji</option>
+    <option value="trend">Trend Ürün</option>
+    <option value="yerel">Yerel</option>
+    <option value="muzik">Müzik</option>
+</select>
 
-    <p style="font-size:12px;">
-        Sistem demo versiyonudur. Reklamlar kategoriye göre oynatılır.
-    </p>
+<label>Süre</label>
+<select id="sure">
+    <option value="gunluk">Günlük</option>
+    <option value="haftalik">Haftalık</option>
+    <option value="aylik">Aylık</option>
+</select>
+
+<button onclick="fiyatHesapla()">💰 Fiyat Hesapla</button>
+
+<p id="fiyat" style="margin-top:10px;"></p>
+
+<button onclick="reklamGonder()">📲 WhatsApp ile Reklam Ver</button>
+
+<hr>
+
+<h3>Kategoriler</h3>
+
+<button onclick="setCategory('araba')">🚗 Araba</button>
+<button onclick="setCategory('teknoloji')">📱 Teknoloji</button>
+<button onclick="setCategory('trend')">🛍 Trend</button>
+<button onclick="setCategory('yerel')">🏪 Yerel</button>
+<button onclick="setCategory('muzik')">🎵 Müzik</button>
+
 </div>
 
+<!-- SAĞ PANEL -->
 <div class="screen">
     <video id="player" autoplay muted></video>
 </div>
@@ -94,52 +127,85 @@ video{
 
 <script>
 
-// 🔥 REKLAM VERİLERİ
+// 🎥 REKLAM TV
 let ads = {
-    araba: [
-        "https://www.w3schools.com/html/mov_bbb.mp4"
-    ],
-    teknoloji: [
-        "https://www.w3schools.com/html/movie.mp4"
-    ],
-    trend: [],
-    yerel: [],
-    muzuk: [
-        "https://www.w3schools.com/html/movie.mp4"
-    ]
+    araba:["https://www.w3schools.com/html/mov_bbb.mp4"],
+    teknoloji:["https://www.w3schools.com/html/movie.mp4"],
+    trend:[],
+    yerel:[],
+    muzik:["https://www.w3schools.com/html/movie.mp4"]
 };
 
-let currentCategory = "araba";
-let index = 0;
+let currentCategory="araba";
+let index=0;
 
 function setCategory(cat){
-    currentCategory = cat;
-    index = 0;
+    currentCategory=cat;
+    index=0;
     play();
 }
 
 function play(){
-    let list = ads[currentCategory];
-    let video = document.getElementById("player");
+    let list=ads[currentCategory];
+    let video=document.getElementById("player");
 
-    if(list.length === 0){
-        setTimeout(play, 2000);
+    if(list.length===0){
+        setTimeout(play,2000);
         return;
     }
 
-    video.src = list[index];
+    video.src=list[index];
     video.play();
 
-    video.onended = function(){
+    video.onended=function(){
         index++;
-        if(index >= list.length){
-            index = 0;
-        }
+        if(index>=list.length) index=0;
         play();
     }
 }
 
 play();
+
+
+// 💰 FİYAT SİSTEMİ
+function fiyatHesapla(){
+    let kategori=document.getElementById("kategori").value;
+    let sure=document.getElementById("sure").value;
+
+    let fiyat=0;
+
+    if(kategori=="araba") fiyat=3000;
+    if(kategori=="teknoloji") fiyat=2500;
+    if(kategori=="trend") fiyat=1500;
+    if(kategori=="yerel") fiyat=1000;
+    if(kategori=="muzik") fiyat=2000;
+
+    if(sure=="gunluk") fiyat=Math.round(fiyat/30);
+    if(sure=="haftalik") fiyat=Math.round(fiyat/4);
+
+    document.getElementById("fiyat").innerHTML="💰 Tahmini Fiyat: "+fiyat+" TL";
+}
+
+
+// 📲 WHATSAPP SİSTEMİ
+function reklamGonder(){
+    let kategori=document.getElementById("kategori").value;
+    let sure=document.getElementById("sure").value;
+
+    let mesaj=
+`Merhaba, Dijital Reklam TV üzerinden reklam vermek istiyorum.
+
+Kategori: ${kategori}
+Süre: ${sure}
+
+Fiyat bilgisi ve yayın başlatma talep ediyorum.`;
+
+    let numara="905074163605";
+
+    let url="https://wa.me/"+numara+"?text="+encodeURIComponent(mesaj);
+
+    window.open(url,"_blank");
+}
 
 </script>
 
