@@ -70,6 +70,14 @@ video{
     height:100%;
     object-fit:cover;
 }
+
+#stats{
+    background:#222;
+    padding:10px;
+    margin-bottom:10px;
+    border-radius:6px;
+    font-size:14px;
+}
 </style>
 </head>
 
@@ -82,15 +90,26 @@ video{
 <!-- SOL PANEL -->
 <div class="menu">
 
+<div id="stats">
+👁 Ziyaretçi: <span id="visitors">1453</span><br>
+📊 Aktif Sistem: Online
+</div>
+
 <h3>📢 Reklam Ver</h3>
 
 <label>Kategori</label>
 <select id="kategori">
-    <option value="araba">Araba</option>
-    <option value="teknoloji">Teknoloji</option>
-    <option value="trend">Trend Ürün</option>
-    <option value="yerel">Yerel</option>
-    <option value="muzik">Müzik</option>
+    <option value="araba">🚗 Araba / Otomotiv</option>
+    <option value="teknoloji">📱 Teknoloji</option>
+    <option value="mobilya">🏠 Mobilya & Dekor</option>
+    <option value="tekstil">👕 Giyim & Tekstil</option>
+    <option value="aksesuar">👜 Çanta & Aksesuar</option>
+    <option value="bijuteri">💍 Takı & Bijuteri</option>
+    <option value="teknik">🔧 Teknik Servis</option>
+    <option value="tasimacilik">🚚 Taşımacılık</option>
+    <option value="uretim">🏭 Üretim</option>
+    <option value="market">🛒 Market</option>
+    <option value="muzik">🎵 Müzik</option>
 </select>
 
 <label>Süre</label>
@@ -112,8 +131,8 @@ video{
 
 <button onclick="setCategory('araba')">🚗 Araba</button>
 <button onclick="setCategory('teknoloji')">📱 Teknoloji</button>
-<button onclick="setCategory('trend')">🛍 Trend</button>
-<button onclick="setCategory('yerel')">🏪 Yerel</button>
+<button onclick="setCategory('mobilya')">🏠 Mobilya</button>
+<button onclick="setCategory('tekstil')">👕 Tekstil</button>
 <button onclick="setCategory('muzik')">🎵 Müzik</button>
 
 </div>
@@ -131,8 +150,14 @@ video{
 let ads = {
     araba:["https://www.w3schools.com/html/mov_bbb.mp4"],
     teknoloji:["https://www.w3schools.com/html/movie.mp4"],
-    trend:[],
-    yerel:[],
+    mobilya:[],
+    tekstil:[],
+    aksesuar:[],
+    bijuteri:[],
+    teknik:[],
+    tasimacilik:[],
+    uretim:[],
+    market:[],
     muzik:["https://www.w3schools.com/html/movie.mp4"]
 };
 
@@ -167,23 +192,29 @@ function play(){
 play();
 
 
-// 💰 FİYAT SİSTEMİ
+// 💰 FİYAT SİSTEMİ (GÜNCEL)
 function fiyatHesapla(){
     let kategori=document.getElementById("kategori").value;
     let sure=document.getElementById("sure").value;
 
-    let fiyat=0;
+    let fiyat=170; // günlük başlangıç
 
-    if(kategori=="araba") fiyat=3000;
-    if(kategori=="teknoloji") fiyat=2500;
-    if(kategori=="trend") fiyat=1500;
-    if(kategori=="yerel") fiyat=1000;
-    if(kategori=="muzik") fiyat=2000;
+    if(kategori=="araba") fiyat*=3;
+    if(kategori=="teknoloji") fiyat*=2.5;
+    if(kategori=="mobilya") fiyat*=2;
+    if(kategori=="tekstil") fiyat*=2;
+    if(kategori=="aksesuar") fiyat*=1.8;
+    if(kategori=="bijuteri") fiyat*=1.8;
+    if(kategori=="teknik") fiyat*=2.2;
+    if(kategori=="tasimacilik") fiyat*=2.5;
+    if(kategori=="uretim") fiyat*=2.3;
+    if(kategori=="market") fiyat*=1.5;
+    if(kategori=="muzik") fiyat*=2;
 
-    if(sure=="gunluk") fiyat=Math.round(fiyat/30);
-    if(sure=="haftalik") fiyat=Math.round(fiyat/4);
+    if(sure=="haftalik") fiyat*=4;
+    if(sure=="aylik") fiyat*=30;
 
-    document.getElementById("fiyat").innerHTML="💰 Tahmini Fiyat: "+fiyat+" TL";
+    document.getElementById("fiyat").innerHTML="💰 Tahmini Fiyat: "+Math.round(fiyat)+" TL";
 }
 
 
@@ -197,8 +228,9 @@ function reklamGonder(){
 
 Kategori: ${kategori}
 Süre: ${sure}
+Günlük başlangıç: 170 TL
 
-Fiyat bilgisi ve yayın başlatma talep ediyorum.`;
+Detaylı bilgi rica ediyorum.`;
 
     let numara="905074163605";
 
@@ -206,6 +238,15 @@ Fiyat bilgisi ve yayın başlatma talep ediyorum.`;
 
     window.open(url,"_blank");
 }
+
+
+// 👁 ZİYARETÇİ SİMÜLASYONU
+let visitors=1453;
+
+setInterval(()=>{
+    visitors += Math.floor(Math.random()*3);
+    document.getElementById("visitors").innerText=visitors;
+},5000);
 
 </script>
 
