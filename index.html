@@ -167,13 +167,10 @@ video{
 
 <!-- MÜZİK -->
 <div class="category">
-    <button onclick="toggleMenu(this)">🎵 MÜZİK PİYASASI</button>
-
-    <div class="submenu">
-        <div onclick="playSingle('muzik',0)">
-            🎬 BELALI YARIM
-        </div>
-    </div>
+<button onclick="toggleMenu(this)">🎵 MÜZİK PİYASASI</button>
+<div class="submenu">
+    <div onclick="playSingle('muzik',0)">🎵 Klip 1</div>
+</div>
 </div>
 
 <!-- MOBİLYA -->
@@ -297,28 +294,7 @@ video{
 
 </div>
 
-<script><script>
-
-// ADS BURAYA (EN ÜSTLERDEN BİRİ)
-let ads = {
-    muzik: ["/videos/belali_yarim_video.mp4.mp4"]
-};
-
-let currentCategory = "araba";
-let index = 0;
-
-
-// FONKSİYONLARIN ALTINA
-function playSingle(cat, i){
-    currentCategory = cat;
-    index = i;
-
-    let video = document.getElementById("player");
-    video.src = ads[cat][i];
-    video.play();
-}
-
-</script>
+<script>
 
 function toggleMenu(btn){
     let menu = btn.nextElementSibling;
@@ -367,6 +343,51 @@ function play(){
 }
 
 play();
+
+</script><script>
+
+// ADS (TEK TANIM)
+let ads = {
+    araba:["https://www.w3schools.com/html/mov_bbb.mp4"],
+    teknoloji:["https://www.w3schools.com/html/movie.mp4"],
+    trend:["https://www.w3schools.com/html/movie.mp4"],
+    muzik:["/videos/belali_yarim_video.mp4.mp4"]
+};
+
+let currentCategory = "araba";
+let index = 0;
+
+// VIDEO OYNAT
+function playSingle(cat, i){
+    currentCategory = cat;
+    index = i;
+
+    let video = document.getElementById("player");
+
+    if(!ads[cat]) return;
+
+    video.src = ads[cat][i];
+    video.play();
+}
+
+// MENU AÇ/KAPA
+function toggleMenu(btn){
+    let menu = btn.nextElementSibling;
+
+    if(menu.style.maxHeight){
+        menu.style.maxHeight = null;
+    } else {
+        menu.style.maxHeight = menu.scrollHeight + "px";
+    }
+}
+
+// WHATSAPP
+function reklamVer(){
+    let mesaj = `Merhaba, Dijital Reklam TV üzerinden reklam vermek istiyorum.
+Kategori: ${currentCategory}`;
+
+    window.open("https://wa.me/905074163605?text=" + encodeURIComponent(mesaj));
+}
 
 </script>
 
