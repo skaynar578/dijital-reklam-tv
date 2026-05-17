@@ -1,10 +1,18 @@
 const express = require("express");
 const fs = require("fs");
+const path = require("path");
 const app = express();
 
 app.use(express.json());
 
-// 📂 KATEGORİLER
+/* =====================================
+   📁 VİDEO DOSYALARI ERİŞİMİ
+===================================== */
+app.use("/videos", express.static("videos"));
+
+/* =====================================
+   📂 KATEGORİLER
+===================================== */
 const categories = [
     "araba","teknoloji","trend","yerel","muzik",
     "mobilya","aksesuar","giyim","taki","canta",
@@ -12,44 +20,57 @@ const categories = [
     "uretim","market","kisisel","spor"
 ];
 
-// 📁 OTOMATİK DOSYA SİSTEMİ
+/* =====================================
+   📁 OTOMATİK KLASÖR + JSON
+===================================== */
 function initFolders(){
 
     if(!fs.existsSync("ads")){
         fs.mkdirSync("ads");
     }
 
-    categories.forEach(cat=>{
-        let path = `ads/${cat}.json`;
+    if(!fs.existsSync("videos")){
+        fs.mkdirSync("videos");
+    }
 
-        if(!fs.existsSync(path)){
-            fs.writeFileSync(path, "[]");
+    categories.forEach(cat=>{
+        let file = path.join("ads", `${cat}.json`);
+
+        if(!fs.existsSync(file)){
+            fs.writeFileSync(file, "[]");
         }
     });
 
-    console.log("✅ Tüm kategori dosyaları hazır");
+    console.log("✅ Sistem hazır (ads + videos)");
 }
 
 initFolders();
 
-// 📥 KATEGORİ YÜKLE
+/* =====================================
+   📥 KATEGORİ OKU
+===================================== */
 function loadCategory(cat){
 
-    let path = `ads/${cat}.json`;
+    let file = path.join("ads", `${cat}.json`);
 
-    if(!fs.existsSync(path)){
-        fs.writeFileSync(path, "[]");
+    if(!fs.existsSync(file)){
+        fs.writeFileSync(file, "[]");
     }
 
-    return JSON.parse(fs.readFileSync(path, "utf8"));
+    return JSON.parse(fs.readFileSync(file, "utf8"));
 }
 
-// 💾 KATEGORİ KAYDET
+/* =====================================
+   💾 KATEGORİ YAZ
+===================================== */
 function saveCategory(cat, data){
-    fs.writeFileSync(`ads/${cat}.json`, JSON.stringify(data, null, 2));
+    let file = path.join("ads", `${cat}.json`);
+    fs.writeFileSync(file, JSON.stringify(data, null, 2));
 }
 
-// 💰 FİYAT SİSTEMİ
+/* =====================================
+   💰 FİYAT SİSTEMİ
+===================================== */
 function calculatePrice(category, duration){
 
     let base = 170;
@@ -60,7 +81,7 @@ function calculatePrice(category, duration){
         mobilya: 2,
         aksesuar: 1.8,
         giyim: 2,
-        takı: 1.8,
+        taki: 1.8,
         canta: 1.8,
         servis: 2.2,
         dekorasyon: 2,
@@ -83,7 +104,9 @@ function calculatePrice(category, duration){
     return Math.round(price);
 }
 
-// 📥 REKLAM EKLE
+/* =====================================
+   📥 REKLAM EKLE
+===================================== */
 app.post("/add", (req, res) => {
 
     let cat = req.body.category;
@@ -114,7 +137,9 @@ app.post("/add", (req, res) => {
     });
 });
 
-// 📤 TÜM REKLAMLAR
+/* =====================================
+   📤 TÜM REKLAMLAR
+===================================== */
 app.get("/ads", (req, res) => {
 
     let all = [];
@@ -127,17 +152,23 @@ app.get("/ads", (req, res) => {
     res.json(all);
 });
 
-// 📂 TEK KATEGORİ
+/* =====================================
+   📂 TEK KATEGORİ
+===================================== */
 app.get("/ads/:category", (req, res) => {
     res.json(loadCategory(req.params.category));
 });
 
-// 📊 KATEGORİ LİSTESİ
+/* =====================================
+   📊 KATEGORİ LİSTESİ
+===================================== */
 app.get("/categories", (req, res) => {
     res.json(categories);
 });
 
-// 🚀 SERVER
+/* =====================================
+   🚀 SERVER START
+===================================== */
 app.listen(3000, () => {
-    console.log("🔥 DİJİTAL REKLAM TV PRO SERVER AKTİF (PORT 3000)");
+    console.log("🔥 DİJİTAL REKLAM TV FULL SİSTEM AKTİF");
 });
