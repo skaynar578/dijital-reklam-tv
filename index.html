@@ -117,6 +117,27 @@ video{
     pointer-events:none;
 }
 
+</style><style>
+body{
+    margin:0;
+    font-family:Arial;
+    background:black;
+    color:white;
+}
+
+/* diğer stiller burada */
+
+/* ✅ BUNU EN ALT TARAFIYA EKLE */
+.upload-box{
+    background:#222;
+    padding:10px;
+    margin-top:5px;
+    border-radius:6px;
+    color:#bbb;
+    font-size:14px;
+    text-align:center;
+    border:1px dashed #444;
+}
 </style>
 </head>
 
@@ -131,162 +152,140 @@ video{
 
 <div class="menu">
 
-<h3>📂 Kategoriler</h3>
+<!-- KATEGORİLER (SADE YÜKLEME SİSTEMİ) -->
 
-<!-- TREND -->
 <div class="category">
 <button onclick="toggleMenu(this)">🛍 TREND ÜRÜNLER</button>
 <div class="submenu">
-    <div onclick="playSingle('trend',0)">🔥 Trend Reklam 1</div>
-    <div onclick="playSingle('trend',1)">🔥 Trend Reklam 2</div>
+    <div class="upload-box">+ İçerik yükleme alanı</div>
 </div>
 </div>
 
-<!-- ARABA -->
 <div class="category">
 <button onclick="toggleMenu(this)">🚗 OTOMOBİL ALIM-SATIM</button>
 <div class="submenu">
-    <div onclick="playSingle('araba',0)">🚗 Araba Reklam 1</div>
+    <div class="upload-box">+ İçerik yükleme alanı</div>
 </div>
 </div>
 
-<!-- TEKNOLOJİ -->
 <div class="category">
 <button onclick="toggleMenu(this)">📱 TEKNOLOJİ ÜRÜNLERİ</button>
 <div class="submenu">
+    <div class="upload-box">+ İçerik yükleme alanı</div>
 </div>
 </div>
 
-<!-- YEREL -->
 <div class="category">
 <button onclick="toggleMenu(this)">🏪 YEREL FİRMA İLANLARI</button>
 <div class="submenu">
-    <div onclick="playSingle('yerel',0)">🏪 Firma 1</div>
+    <div class="upload-box">+ İçerik yükleme alanı</div>
 </div>
 </div>
 
-<!-- MÜZİK -->
 <div class="category">
-    <button onclick="toggleMenu(this)">🎵 MÜZİK PİYASASI</button>
-
-    <div class="submenu">
-        <div onclick="playSingle('muzik',0)">🎵 Müzik Reklam</div>
-        <div onclick="playSingle('muzik',1)">🎵 Belalı Yarim</div>
-    </div>
+<button onclick="toggleMenu(this)">🎵 MÜZİK PİYASASI</button>
+<div class="submenu">
+    <div class="upload-box">+ İçerik yükleme alanı</div>
+</div>
 </div>
 
-<!-- MOBİLYA -->
 <div class="category">
 <button onclick="toggleMenu(this)">🪑 MOBİLYA VE AKSESUARLARI</button>
 <div class="submenu">
-    <div onclick="playSingle('mobilya',0)">🪑 Ürün 1</div>
+    <div class="upload-box">+ İçerik yükleme alanı</div>
 </div>
 </div>
 
-<!-- EV YAŞAM -->
 <div class="category">
 <button onclick="toggleMenu(this)">⌚ EV VE YAŞAM</button>
 <div class="submenu">
-    <div onclick="playSingle('aksesuar',0)">⌚ Ürün 1</div>
+    <div class="upload-box">+ İçerik yükleme alanı</div>
 </div>
 </div>
 
-<!-- SPOR -->
 <div class="category">
 <button onclick="toggleMenu(this)">⚽ SPOR</button>
 <div class="submenu">
-    <div onclick="playSingle('spor',0)">⚽ Ürün 1</div>
+    <div class="upload-box">+ İçerik yükleme alanı</div>
 </div>
 </div>
 
-<!-- GİYİM -->
 <div class="category">
 <button onclick="toggleMenu(this)">👕 GİYİM VE TEXTİL ÜRÜNLERİ</button>
 <div class="submenu">
-    <div onclick="playSingle('giyim',0)">👕 Ürün 1</div>
+    <div class="upload-box">+ İçerik yükleme alanı</div>
 </div>
 </div>
 
-<!-- TAKI -->
 <div class="category">
 <button onclick="toggleMenu(this)">💍 TAKI</button>
 <div class="submenu">
-    <div onclick="playSingle('taki',0)">💍 Ürün 1</div>
+    <div class="upload-box">+ İçerik yükleme alanı</div>
 </div>
 </div>
 
-<!-- ÇANTA -->
 <div class="category">
 <button onclick="toggleMenu(this)">👜 ÇANTA</button>
 <div class="submenu">
-    <div onclick="playSingle('canta',0)">👜 Ürün 1</div>
+    <div class="upload-box">+ İçerik yükleme alanı</div>
 </div>
 </div>
 
-<!-- SERVİS -->
 <div class="category">
 <button onclick="toggleMenu(this)">🚚 EVE SERVİS</button>
 <div class="submenu">
-    <div onclick="playSingle('servis',0)">🚚 Hizmet 1</div>
+    <div class="upload-box">+ İçerik yükleme alanı</div>
 </div>
 </div>
 
-<!-- DEKORASYON -->
 <div class="category">
 <button onclick="toggleMenu(this)">🏠 DEKORASYON</button>
 <div class="submenu">
-    <div onclick="playSingle('dekorasyon',0)">🏠 Ürün 1</div>
+    <div class="upload-box">+ İçerik yükleme alanı</div>
 </div>
 </div>
 
-<!-- TAMİR -->
 <div class="category">
 <button onclick="toggleMenu(this)">🔧 TAMİRAT TADİLAT</button>
 <div class="submenu">
-    <div onclick="playSingle('tamir',0)">🔧 Hizmet 1</div>
+    <div class="upload-box">+ İçerik yükleme alanı</div>
 </div>
 </div>
 
-<!-- TEKNİK SERVİS -->
 <div class="category">
 <button onclick="toggleMenu(this)">🛠 TEKNİK SERVİS</button>
 <div class="submenu">
-    <div onclick="playSingle('teknik_servis',0)">🛠 Servis 1</div>
+    <div class="upload-box">+ İçerik yükleme alanı</div>
 </div>
 </div>
 
-<!-- NAKLİYE -->
 <div class="category">
 <button onclick="toggleMenu(this)">🚚 NAKLİYE İLANLARI</button>
 <div class="submenu">
-    <div onclick="playSingle('nakliye',0)">🚚 Hizmet 1</div>
+    <div class="upload-box">+ İçerik yükleme alanı</div>
 </div>
 </div>
 
-<!-- ÜRETİM -->
 <div class="category">
 <button onclick="toggleMenu(this)">🏭 ÜRETİM</button>
 <div class="submenu">
-    <div onclick="playSingle('uretim',0)">🏭 Firma 1</div>
+    <div class="upload-box">+ İçerik yükleme alanı</div>
 </div>
 </div>
 
-<!-- MARKET -->
 <div class="category">
 <button onclick="toggleMenu(this)">🛒 MARKET</button>
 <div class="submenu">
-    <div onclick="playSingle('market',0)">🛒 Ürün 1</div>
+    <div class="upload-box">+ İçerik yükleme alanı</div>
 </div>
 </div>
 
-<!-- KİŞİSEL -->
 <div class="category">
 <button onclick="toggleMenu(this)">🧑 KİŞİSEL REKLAMLAR</button>
 <div class="submenu">
-    <div onclick="playSingle('kisisel',0)">🧑 Reklam 1</div>
+    <div class="upload-box">+ İçerik yükleme alanı</div>
 </div>
 </div>
-
     
 </div>
 
