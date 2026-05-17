@@ -297,7 +297,28 @@ video{
 
 </div>
 
-<script>
+<script><script>
+
+// ADS BURAYA (EN ÜSTLERDEN BİRİ)
+let ads = {
+    muzik: ["/videos/belali_yarim_video.mp4.mp4"]
+};
+
+let currentCategory = "araba";
+let index = 0;
+
+
+// FONKSİYONLARIN ALTINA
+function playSingle(cat, i){
+    currentCategory = cat;
+    index = i;
+
+    let video = document.getElementById("player");
+    video.src = ads[cat][i];
+    video.play();
+}
+
+</script>
 
 function toggleMenu(btn){
     let menu = btn.nextElementSibling;
