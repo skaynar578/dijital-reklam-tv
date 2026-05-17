@@ -4,30 +4,54 @@ const app = express();
 
 app.use(express.json());
 
-let ads = [];
+// 📂 KATEGORİLER
+const categories = [
+    "araba","teknoloji","trend","yerel","muzik",
+    "mobilya","aksesuar","giyim","taki","canta",
+    "servis","dekorasyon","tamir","nakliye",
+    "uretim","market","kisisel","spor"
+];
 
-// 📦 VERİYİ DOSYADAN YÜKLE
-if (fs.existsSync("ads.json")) {
-    ads = JSON.parse(fs.readFileSync("ads.json"));
+// 📁 ADS KLASÖRÜ + JSON DOSYALARI OTOMATİK OLUŞTUR
+function initFolders(){
+
+    if(!fs.existsSync("ads")){
+        fs.mkdirSync("ads");
+    }
+
+    categories.forEach(cat=>{
+        let path = `ads/${cat}.json`;
+
+        if(!fs.existsSync(path)){
+            fs.writeFileSync(path, "[]");
+        }
+    });
+
+    console.log("✅ Tüm kategori dosyaları hazır");
 }
 
-/*
-REKLAM MODELİ:
-{
-  id,
-  title,
-  category,
-  videoUrl,
-  duration,
-  price,
-  createdAt
-}
-*/
+initFolders();
 
-// 💰 FİYAT HESAPLAMA SİSTEMİ
+// 📥 DOSYA OKU
+function loadCategory(cat){
+    let path = `ads/${cat}.json`;
+
+    if(!fs.existsSync(path)){
+        fs.writeFileSync(path, "[]");
+    }
+
+    return JSON.parse(fs.readFileSync(path));
+}
+
+// 💾 DOSYA YAZ
+function saveCategory(cat, data){
+    fs.writeFileSync(`ads/${cat}.json`, JSON.stringify(data, null, 2));
+}
+
+// 💰 FİYAT HESAP
 function calculatePrice(category, duration){
 
-    let base = 170; // günlük başlangıç
+    let base = 170;
 
     let multipliers = {
         araba: 3,
@@ -44,7 +68,8 @@ function calculatePrice(category, duration){
         uretim: 2.3,
         market: 1.5,
         kisisel: 1.5,
-        muzik: 2
+        muzik: 2,
+        spor: 2
     };
 
     let price = base * (multipliers[category] || 1);
@@ -58,12 +83,16 @@ function calculatePrice(category, duration){
 // 📥 REKLAM EKLE
 app.post("/add", (req, res) => {
 
-    let price = calculatePrice(req.body.category, req.body.duration);
+    let cat = req.body.category;
+
+    let price = calculatePrice(cat, req.body.duration);
+
+    let ads = loadCategory(cat);
 
     let newAd = {
         id: Date.now(),
         title: req.body.title,
-        category: req.body.category,
+        category: cat,
         videoUrl: req.body.videoUrl,
         duration: req.body.duration,
         price: price,
@@ -72,7 +101,7 @@ app.post("/add", (req, res) => {
 
     ads.push(newAd);
 
-    fs.writeFileSync("ads.json", JSON.stringify(ads, null, 2));
+    saveCategory(cat, ads);
 
     res.json({
         message: "✔ Reklam eklendi",
@@ -82,19 +111,26 @@ app.post("/add", (req, res) => {
 
 // 📤 TÜM REKLAMLAR
 app.get("/ads", (req, res) => {
-    res.json(ads);
+
+    let all = [];
+
+    categories.forEach(cat=>{
+        let data = loadCategory(cat);
+        all = all.concat(data);
+    });
+
+    res.json(all);
 });
 
-// 📂 KATEGORİ FİLTRE
+// 📂 KATEGORİYE GÖRE
 app.get("/ads/:category", (req, res) => {
-    let filtered = ads.filter(a => a.category === req.params.category);
-    res.json(filtered);
+    let data = loadCategory(req.params.category);
+    res.json(data);
 });
 
 // 📊 KATEGORİ LİSTESİ
 app.get("/categories", (req, res) => {
-    let cats = [...new Set(ads.map(a => a.category))];
-    res.json(cats);
+    res.json(categories);
 });
 
 // 🚀 SERVER START
