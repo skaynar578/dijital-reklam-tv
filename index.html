@@ -135,9 +135,7 @@ video{
 
 <div class="category">
 <button onclick="toggleMenu(this)">🛍 TREND ÜRÜNLER</button>
-<div class="submenu"><div class="upload">
-    <input type="file" accept="video/*" onchange="uploadVideo(event,'trend')">
-</div>
+<div class="submenu">
     <div onclick="playSingle('trend',0)">🔥 Trend Reklam 1</div>
 </div>
 </div>
@@ -166,6 +164,11 @@ video{
 <div class="category">
 <button onclick="toggleMenu(this)">🎵 MÜZİK PİYASASI</button>
 <div class="submenu">
+
+   <div class="upload">
+    <input type="file" accept="video/*" onchange="uploadVideo(event,'trend')">
+</div> 
+    
     <div onclick="playSingle('muzik',0)">🎵 Klip 1</div>
 </div>
 </div>
