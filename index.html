@@ -95,43 +95,22 @@ video{
     pointer-events:none;
 }
 
-/* 🎵 TRACK STİL */
-.category h3{
-    cursor:pointer;
-    background:#222;
-    padding:10px;
-    border-radius:6px;
-    margin-top:10px;
-}
-
-.track-list{
-    display:none;
-    margin-top:8px;
-    padding-left:10px;
-}
-
-.track-list div{
-    background:#2b2b2b;
-    padding:10px;
-    margin-top:5px;
-    border-radius:6px;
-    cursor:pointer;
-}
-
-.track-list div:hover{
-    background:#444;
-}
-
 </style>
 </head>
 
 <body>
 
 <!-- 🔥 HEADER -->
-<header class="topbar">
+<header class="topbar"> <header>
+    📺 DİJİTAL REKLAM TV
+    <div style="font-size:12px; font-weight:normal; margin-top:5px;">
+        Dijital Reklam TV ile MARKANIZI DUYURUN ! işletmen, ürünün VE hizmetin doğrudan müşteriye ulaşır.
+    </div>
+</header>
 
     <div class="title">📺 DİJİTAL REKLAM TV</div>
 
+    <!-- 🔥 TEK BUTON -->
     <div class="action" onclick="reklamVer()">
         📢 Reklam Ver / WhatsApp
     </div>
@@ -152,31 +131,20 @@ video{
 
     <hr>
 
-    <button onclick="setCategory('mobilya')">🪑 MOBİLYA</button>
+    <button onclick="setCategory('mobilya')">🪑 MOBİLYA VE AKSESUARLARI</button>
     <button onclick="setCategory('aksesuar')">⌚ EV VE YAŞAM</button>
     <button onclick="setCategory('spor')">⚽ SPOR</button>
-
-    <hr>
-
-    <!-- 🎵 EK MÜZİK ARŞİVİ -->
-    <div class="category">
-
-        <h3 onclick="toggleList('muzikarsiv')">
-            🎧 Müzik Arşivi
-        </h3>
-
-        <div class="track-list" id="muzikarsiv">
-
-            <div onclick="playTrack('Ben Kalırım','BEN.KALIRIM.YENİ.mp3')">
-                🎵 BEN KALIRIM (YENİ)
-            </div>
-
-            <div onclick="playTrack('Belalı Yarım','belalı yarim video.mp4')">
-                🎬 BELALI YARIM (VIDEO)
-            </div>
-
-        </div>
-    </div>
+    <button onclick="setCategory('giyim')">👕 Giyim</button>
+    <button onclick="setCategory('taki')">💍 TAKI</button>
+    <button onclick="setCategory('canta')">👜 ÇANTA</button>
+    <button onclick="setCategory('servis')"> EVE SERVİS</button>
+    <button onclick="setCategory('dekorasyon')">🏠 DEKORASYON</button>
+    <button onclick="setCategory('tamir')">🔧 TAMİR TADİLAT</button>
+    <button onclick="setCategory('teknik_servis')">🛠 TEKNİK SERVİS</button>
+    <button onclick="setCategory('nakliye')">🚚 NAKLİYE</button>
+    <button onclick="setCategory('uretim')">🏭 ÜRETİM</button>
+    <button onclick="setCategory('market')">🛒 MARKET</button>
+    <button onclick="setCategory('kisisel')">🧑 KİSİSEL REKLAMLKAR</button>
 
 </div>
 
@@ -188,10 +156,7 @@ video{
 
 <script>
 
-let currentCategory = "araba";
-let index = 0;
-
-// 📲 WHATSAPP
+// 📲 TEK WHATSAPP BUTONU
 function reklamVer(){
 
     let mesaj =
@@ -210,29 +175,6 @@ function setCategory(cat){
     play();
 }
 
-// 🎵 TRACK AÇ / KAPA
-function toggleList(id){
-    let el = document.getElementById(id);
-    el.style.display = (el.style.display === "block") ? "none" : "block";
-}
-
-// ▶️ PLAY TRACK (MP3 + MP4)
-function playTrack(title, file){
-
-    let video = document.getElementById("player");
-
-    // mp4 ise video
-    if(file.endsWith(".mp4")){
-        video.src = file;
-        video.play();
-    }
-    // mp3 ise audio
-    else{
-        let audio = new Audio(file);
-        audio.play();
-    }
-}
-
 // 🎥 ADS
 let ads = {
     araba:["https://www.w3schools.com/html/mov_bbb.mp4"],
@@ -240,14 +182,26 @@ let ads = {
     trend:[],
     yerel:[],
     muzik:["https://www.w3schools.com/html/movie.mp4"],
+
     mobilya:[],
     aksesuar:[],
-    spor:[]
+    giyim:[],
+    taki:[],
+    canta:[],
+    servis:[],
+    dekorasyon:[],
+    tamir:[],
+    nakliye:[],
+    uretim:[],
+    market:[],
+    kisisel:[]
 };
 
-// ▶️ AUTO PLAY
-function play(){
+let currentCategory = "araba";
+let index = 0;
 
+// ▶️ PLAY
+function play(){
     let list = ads[currentCategory];
     let video = document.getElementById("player");
 
@@ -261,7 +215,9 @@ function play(){
 
     video.onended = function(){
         index++;
-        if(index >= list.length) index = 0;
+        if(index >= list.length){
+            index = 0;
+        }
         play();
     }
 }
