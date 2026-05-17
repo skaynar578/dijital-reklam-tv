@@ -15,7 +15,7 @@ body{
     padding-top:60px;
 }
 
-/* TOPBAR */
+/* 🔥 SABİT HEADER */
 .topbar{
     position:fixed;
     top:0;
@@ -36,11 +36,15 @@ body{
     font-weight:bold;
 }
 
+/* 🔥 TEK BUTON */
 .action{
     background:green;
     color:white;
     padding:8px 14px;
     border-radius:6px;
+    text-decoration:none;
+    font-weight:bold;
+    font-size:14px;
     cursor:pointer;
 }
 
@@ -56,6 +60,7 @@ body{
     width:25%;
     background:#1a1a1a;
     padding:15px;
+    box-sizing:border-box;
     overflow-y:auto;
 }
 
@@ -70,11 +75,12 @@ body{
 button{
     width:100%;
     padding:12px;
-    margin-top:8px;
+    margin-top:10px;
     cursor:pointer;
     border:none;
     background:#333;
     color:white;
+    font-size:16px;
     border-radius:6px;
 }
 
@@ -82,6 +88,7 @@ button:hover{
     background:red;
 }
 
+/* 🔥 SUB MENU */
 .sublist{
     display:none;
     margin-left:10px;
@@ -104,6 +111,7 @@ video{
 
 <body>
 
+<!-- 🔥 HEADER -->
 <header class="topbar">
 
     <div class="title">📺 DİJİTAL REKLAM TV</div>
@@ -116,30 +124,42 @@ video{
 
 <div class="container">
 
-<!-- MENU -->
 <div class="menu">
 
     <h3>📂 Kategoriler</h3>
 
-    <!-- ANA KATEGORİLER -->
-    <button onclick="toggle('arabaList')">🚗 Otomobil</button>
+    <!-- TREND -->
+    <button onclick="toggle('trendList')">🛍 TREND ÜRÜNLER</button>
+    <div id="trendList" class="sublist">
+        <button onclick="setCategory('trend')">Trend Reklam</button>
+    </div>
+
+    <!-- ARABA -->
+    <button onclick="toggle('arabaList')">🚗 OTOMOBİL</button>
     <div id="arabaList" class="sublist">
-        <button onclick="playAd('araba',0)">BMW Reklam</button>
+        <button onclick="setCategory('araba')">Araba Reklam</button>
     </div>
 
-    <button onclick="toggle('teknolojiList')">📱 Teknoloji</button>
+    <!-- TEKNOLOJİ -->
+    <button onclick="toggle('teknolojiList')">📱 TEKNOLOJİ</button>
     <div id="teknolojiList" class="sublist">
-        <button onclick="playAd('teknoloji',0)">Telefon Reklam</button>
+        <button onclick="setCategory('teknoloji')">Teknoloji Reklam</button>
     </div>
 
-    <button onclick="toggle('muzikList')">🎵 Müzik</button>
+    <!-- YEREL -->
+    <button onclick="toggle('yerelList')">🏪 YEREL</button>
+    <div id="yerelList" class="sublist">
+        <button onclick="setCategory('yerel')">Yerel Reklam</button>
+    </div>
+
+    <!-- MÜZİK -->
+    <button onclick="toggle('muzikList')">🎵 MÜZİK</button>
     <div id="muzikList" class="sublist">
-        <button onclick="playAd('muzik',0)">Belalı Yarim</button>
+        <button onclick="setCategory('muzik')">Belalı Yarim</button>
     </div>
 
 </div>
 
-<!-- SCREEN -->
 <div class="screen">
     <video id="player" autoplay muted></video>
 </div>
@@ -148,33 +168,31 @@ video{
 
 <script>
 
-/* REKLAMLAR */
 let ads = {
     araba:["https://www.w3schools.com/html/mov_bbb.mp4"],
     teknoloji:["https://www.w3schools.com/html/movie.mp4"],
+    trend:[],
+    yerel:[],
     muzik:["https://www.w3schools.com/html/movie.mp4"]
 };
 
 let currentCategory = "araba";
 let index = 0;
 
-/* SUB MENU AÇ/KAPA */
+/* 🔥 AÇ KAPA */
 function toggle(id){
     let el = document.getElementById(id);
     el.style.display = (el.style.display === "block") ? "none" : "block";
 }
 
-/* TEK REKLAM OYNAT */
-function playAd(cat,i){
+/* 📂 KATEGORİ */
+function setCategory(cat){
     currentCategory = cat;
-    index = i;
-
-    let video = document.getElementById("player");
-    video.src = ads[cat][i];
-    video.play();
+    index = 0;
+    play();
 }
 
-/* WHATSAPP */
+/* 📲 WHATSAPP */
 function reklamVer(){
 
     let mesaj =
@@ -185,6 +203,31 @@ Kategori: ${currentCategory}`;
 
     window.open("https://wa.me/" + numara + "?text=" + encodeURIComponent(mesaj), "_blank");
 }
+
+/* ▶️ PLAY */
+function play(){
+
+    let list = ads[currentCategory];
+    let video = document.getElementById("player");
+
+    if(list.length === 0){
+        setTimeout(play, 2000);
+        return;
+    }
+
+    video.src = list[index];
+    video.play();
+
+    video.onended = function(){
+        index++;
+        if(index >= list.length){
+            index = 0;
+        }
+        play();
+    }
+}
+
+play();
 
 </script>
 
