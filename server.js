@@ -6,12 +6,16 @@ const cors = require("cors");
 const app = express();
 
 app.use(express.json());
-app.use(cors()); // 🔥 FRONTEND BAĞLANTI İÇİN ÇOK ÖNEMLİ
+app.use(cors());
 
 /* =====================================
-   📁 VİDEO DOSYALARI ERİŞİMİ
+   📁 VİDEO DOSYALARI
 ===================================== */
-app.use("/videos", express.static(path.join(__dirname, "videos")));
+app.use("/videos", express.static(path.join(__dirname, "videos"), {
+    setHeaders: (res) => {
+        res.set("Access-Control-Allow-Origin", "*");
+    }
+}));
 
 /* =====================================
    📂 KATEGORİLER
@@ -72,7 +76,7 @@ function saveCategory(cat, data){
 }
 
 /* =====================================
-   💰 FİYAT SİSTEMİ
+   💰 FİYAT HESABI
 ===================================== */
 function calculatePrice(category, duration){
 
@@ -185,7 +189,21 @@ app.get("/categories", (req, res) => {
 });
 
 /* =====================================
-   🧪 TEST ROUTE
+   🧪 VİDEO TEST (DEBUG)
+===================================== */
+app.get("/video-check/:name", (req, res) => {
+
+    let filePath = path.join(__dirname, "videos", req.params.name);
+
+    if(fs.existsSync(filePath)){
+        res.json({ok:true});
+    } else {
+        res.status(404).json({ok:false});
+    }
+});
+
+/* =====================================
+   🧪 TEST
 ===================================== */
 app.get("/", (req, res) => {
     res.send("🔥 Dijital Reklam TV Backend Çalışıyor");
