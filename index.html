@@ -15,7 +15,7 @@ body{
     padding-top:60px;
 }
 
-/* 🔥 SABİT HEADER */
+/* TOPBAR */
 .topbar{
     position:fixed;
     top:0;
@@ -36,15 +36,11 @@ body{
     font-weight:bold;
 }
 
-/* 🔥 TEK BUTON */
 .action{
     background:green;
     color:white;
     padding:8px 14px;
     border-radius:6px;
-    text-decoration:none;
-    font-weight:bold;
-    font-size:14px;
     cursor:pointer;
 }
 
@@ -60,7 +56,6 @@ body{
     width:25%;
     background:#1a1a1a;
     padding:15px;
-    box-sizing:border-box;
     overflow-y:auto;
 }
 
@@ -75,17 +70,26 @@ body{
 button{
     width:100%;
     padding:12px;
-    margin-top:10px;
+    margin-top:8px;
     cursor:pointer;
     border:none;
     background:#333;
     color:white;
-    font-size:16px;
     border-radius:6px;
 }
 
 button:hover{
     background:red;
+}
+
+.sublist{
+    display:none;
+    margin-left:10px;
+}
+
+.sublist button{
+    background:#222;
+    font-size:13px;
 }
 
 video{
@@ -100,7 +104,6 @@ video{
 
 <body>
 
-<!-- 🔥 TOP BAR -->
 <header class="topbar">
 
     <div class="title">📺 DİJİTAL REKLAM TV</div>
@@ -113,34 +116,30 @@ video{
 
 <div class="container">
 
+<!-- MENU -->
 <div class="menu">
 
     <h3>📂 Kategoriler</h3>
 
-    <button onclick="setCategory('trend')">🛍 TREND ÜRÜNLER</button>
-    <button onclick="setCategory('araba')">🚗 OTOMOBİL</button>
-    <button onclick="setCategory('teknoloji')">📱 TEKNOLOJİ ÜRÜNLERİ</button>
-    <button onclick="setCategory('yerel')">🏪 YEREL FİRMALAR</button>
-    <button onclick="setCategory('muzik')">🎵 MÜZİK</button>
+    <!-- ANA KATEGORİLER -->
+    <button onclick="toggle('arabaList')">🚗 Otomobil</button>
+    <div id="arabaList" class="sublist">
+        <button onclick="playAd('araba',0)">BMW Reklam</button>
+    </div>
 
-    <hr>
+    <button onclick="toggle('teknolojiList')">📱 Teknoloji</button>
+    <div id="teknolojiList" class="sublist">
+        <button onclick="playAd('teknoloji',0)">Telefon Reklam</button>
+    </div>
 
-    <button onclick="setCategory('mobilya')">🪑 MOBİLYA</button>
-    <button onclick="setCategory('aksesuar')">⌚ EV VE YAŞAM</button>
-    <button onclick="setCategory('spor')">⚽ SPOR</button>
-    <button onclick="setCategory('giyim')">👕 GİYİM</button>
-    <button onclick="setCategory('taki')">💍 TAKI</button>
-    <button onclick="setCategory('canta')">👜 ÇANTA</button>
-    <button onclick="setCategory('servis')">🛠 TEKNİK SERVİS</button>
-    <button onclick="setCategory('dekorasyon')">🏠 DEKORASYON</button>
-    <button onclick="setCategory('tamir')">🔧 TAMİR</button>
-    <button onclick="setCategory('nakliye')">🚚 NAKLİYE</button>
-    <button onclick="setCategory('uretim')">🏭 ÜRETİM</button>
-    <button onclick="setCategory('market')">🛒 MARKET</button>
-    <button onclick="setCategory('kisisel')">🧑 KİŞİSEL</button>
+    <button onclick="toggle('muzikList')">🎵 Müzik</button>
+    <div id="muzikList" class="sublist">
+        <button onclick="playAd('muzik',0)">Belalı Yarim</button>
+    </div>
 
 </div>
 
+<!-- SCREEN -->
 <div class="screen">
     <video id="player" autoplay muted></video>
 </div>
@@ -149,38 +148,33 @@ video{
 
 <script>
 
+/* REKLAMLAR */
 let ads = {
     araba:["https://www.w3schools.com/html/mov_bbb.mp4"],
     teknoloji:["https://www.w3schools.com/html/movie.mp4"],
-    trend:[],
-    yerel:[],
-    muzik:["https://www.w3schools.com/html/movie.mp4"],
-    mobilya:[],
-    aksesuar:[],
-    spor:[],
-    giyim:[],
-    taki:[],
-    canta:[],
-    servis:[],
-    dekorasyon:[],
-    tamir:[],
-    nakliye:[],
-    uretim:[],
-    market:[],
-    kisisel:[]
+    muzik:["https://www.w3schools.com/html/movie.mp4"]
 };
 
 let currentCategory = "araba";
 let index = 0;
 
-// 📂 KATEGORİ
-function setCategory(cat){
-    currentCategory = cat;
-    index = 0;
-    play();
+/* SUB MENU AÇ/KAPA */
+function toggle(id){
+    let el = document.getElementById(id);
+    el.style.display = (el.style.display === "block") ? "none" : "block";
 }
 
-// 📲 WHATSAPP
+/* TEK REKLAM OYNAT */
+function playAd(cat,i){
+    currentCategory = cat;
+    index = i;
+
+    let video = document.getElementById("player");
+    video.src = ads[cat][i];
+    video.play();
+}
+
+/* WHATSAPP */
 function reklamVer(){
 
     let mesaj =
@@ -191,31 +185,6 @@ Kategori: ${currentCategory}`;
 
     window.open("https://wa.me/" + numara + "?text=" + encodeURIComponent(mesaj), "_blank");
 }
-
-// ▶️ OYNAT
-function play(){
-
-    let list = ads[currentCategory];
-    let video = document.getElementById("player");
-
-    if(list.length === 0){
-        setTimeout(play, 2000);
-        return;
-    }
-
-    video.src = list[index];
-    video.play();
-
-    video.onended = function(){
-        index++;
-        if(index >= list.length){
-            index = 0;
-        }
-        play();
-    }
-}
-
-play();
 
 </script>
 
