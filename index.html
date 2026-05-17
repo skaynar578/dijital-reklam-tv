@@ -70,7 +70,7 @@ body{
     background:black;
 }
 
-/* CATEGORY */
+/* KATEGORİ */
 .category{
     margin-top:10px;
 }
@@ -90,15 +90,14 @@ body{
     background:red;
 }
 
-/* SUBMENU */
+/* ALT KUTULAR */
 .submenu{
     max-height:0;
     overflow:hidden;
     transition:0.3s;
 }
 
-/* ITEM */
-.item{
+.submenu div{
     background:#222;
     padding:10px;
     margin-top:5px;
@@ -107,23 +106,15 @@ body{
     font-size:14px;
 }
 
-.item:hover{
+.submenu div:hover{
     background:green;
-}
-
-/* UPLOAD */
-.upload{
-    background:#111;
-    padding:10px;
-    margin-top:5px;
-    border-radius:6px;
-    border:1px dashed #444;
 }
 
 video{
     width:100%;
     height:100%;
     object-fit:cover;
+    pointer-events:none;
 }
 
 </style>
@@ -133,7 +124,7 @@ video{
 
 <header class="topbar">
     <div class="title">📺 reklam online DİJİTAL REKLAM</div>
-    <div class="action" onclick="reklamVer()">📢 WhatsApp</div>
+    <div class="action" onclick="reklamVer()">📢 Reklam Ver / WhatsApp</div>
 </header>
 
 <div class="container">
@@ -142,238 +133,213 @@ video{
 
 <h3>📂 Kategoriler</h3>
 
-<!-- ================== TREND ================== -->
 <div class="category">
-<button onclick="toggle(this)">🛍 TREND ÜRÜNLER</button>
-<div class="submenu" id="trend">
-    <div class="upload">
-        <input type="file" accept="video/*" onchange="upload(event,'trend')">
-    </div>
+<button onclick="toggleMenu(this)">🛍 TREND ÜRÜNLER</button>
+<div class="submenu">
+    <div onclick="playSingle('trend',0)">🔥 Trend Reklam 1</div>
 </div>
 </div>
 
-<!-- ================== ARABA ================== -->
 <div class="category">
-<button onclick="toggle(this)">🚗 OTOMOBİL ALIM-SATIM</button>
-<div class="submenu" id="araba">
-    <div class="upload">
-        <input type="file" accept="video/*" onchange="upload(event,'araba')">
-    </div>
+<button onclick="toggleMenu(this)">🚗 OTOMOBİL ALIM-SATIM</button>
+<div class="submenu">
+    <div onclick="playSingle('araba',0)">🚗 Araba Reklam 1</div>
 </div>
 </div>
 
-<!-- ================== TEKNOLOJİ ================== -->
 <div class="category">
-<button onclick="toggle(this)">📱 TEKNOLOJİ ÜRÜNLERİ</button>
-<div class="submenu" id="teknoloji">
-    <div class="upload">
-        <input type="file" accept="video/*" onchange="upload(event,'teknoloji')">
-    </div>
+<button onclick="toggleMenu(this)">📱 TEKNOLOJİ ÜRÜNLERİ</button>
+<div class="submenu">
+    <div onclick="playSingle('teknoloji',0)">📱 Teknoloji Reklam 1</div>
 </div>
 </div>
 
-<!-- ================== YEREL ================== -->
 <div class="category">
-<button onclick="toggle(this)">🏪 YEREL FİRMA İLANLARI</button>
-<div class="submenu" id="yerel">
-    <div class="upload">
-        <input type="file" accept="video/*" onchange="upload(event,'yerel')">
-    </div>
+<button onclick="toggleMenu(this)">🏪 YEREL FİRMA İLANLARI</button>
+<div class="submenu">
+    <div onclick="playSingle('yerel',0)">🏪 Firma 1</div>
 </div>
 </div>
 
-<div class="submenu" id="muzik">
-
-    <div class="upload-box">
-        <label class="upload-btn">
-            ➕ Video Yükle
-            <input type="file" accept="video/*" onchange="upload(event,'muzik')">
-        </label>
-    </div>
-
-</div>
-
-<!-- ================== MOBİLYA ================== -->
 <div class="category">
-<button onclick="toggle(this)">🪑 MOBİLYA VE AKSESUAR</button>
-<div class="submenu" id="mobilya">
-    <div class="upload">
-        <input type="file" accept="video/*" onchange="upload(event,'mobilya')">
-    </div>
+<button onclick="toggleMenu(this)">🎵 MÜZİK PİYASASI</button>
+<div class="submenu">
+    <div onclick="playSingle('muzik',0)">🎵 Klip 1</div>
 </div>
 </div>
 
-<!-- ================== EV YAŞAM ================== -->
 <div class="category">
-<button onclick="toggle(this)">⌚ EV VE YAŞAM</button>
-<div class="submenu" id="ev">
-    <div class="upload">
-        <input type="file" accept="video/*" onchange="upload(event,'ev')">
-    </div>
+<button onclick="toggleMenu(this)">🪑 MOBİLYA VE AKSESUARLARI</button>
+<div class="submenu">
+    <div onclick="playSingle('mobilya',0)">🪑 Ürün 1</div>
 </div>
 </div>
 
-<!-- ================== SPOR ================== -->
 <div class="category">
-<button onclick="toggle(this)">⚽ SPOR</button>
-<div class="submenu" id="spor">
-    <div class="upload">
-        <input type="file" accept="video/*" onchange="upload(event,'spor')">
-    </div>
+<button onclick="toggleMenu(this)">⌚ EV VE YAŞAM</button>
+<div class="submenu">
+    <div onclick="playSingle('aksesuar',0)">⌚ Ürün 1</div>
 </div>
 </div>
 
-<!-- ================== GİYİM ================== -->
 <div class="category">
-<button onclick="toggle(this)">👕 GİYİM VE TEXTİL</button>
-<div class="submenu" id="giyim">
-    <div class="upload">
-        <input type="file" accept="video/*" onchange="upload(event,'giyim')">
-    </div>
+<button onclick="toggleMenu(this)">⚽ SPOR</button>
+<div class="submenu">
+    <div onclick="playSingle('spor',0)">⚽ Ürün 1</div>
 </div>
 </div>
 
-<!-- ================== TAKI ================== -->
 <div class="category">
-<button onclick="toggle(this)">💍 TAKI</button>
-<div class="submenu" id="taki">
-    <div class="upload">
-        <input type="file" accept="video/*" onchange="upload(event,'taki')">
-    </div>
+<button onclick="toggleMenu(this)">👕 GİYİM VE TEXTİL ÜRÜNLERİ</button>
+<div class="submenu">
+    <div onclick="playSingle('giyim',0)">👕 Ürün 1</div>
 </div>
 </div>
 
-<!-- ================== ÇANTA ================== -->
 <div class="category">
-<button onclick="toggle(this)">👜 ÇANTA</button>
-<div class="submenu" id="canta">
-    <div class="upload">
-        <input type="file" accept="video/*" onchange="upload(event,'canta')">
-    </div>
+<button onclick="toggleMenu(this)">💍 TAKI</button>
+<div class="submenu">
+    <div onclick="playSingle('taki',0)">💍 Ürün 1</div>
 </div>
 </div>
 
-<!-- ================== SERVİS ================== -->
 <div class="category">
-<button onclick="toggle(this)">🚚 EVE SERVİS</button>
-<div class="submenu" id="servis">
-    <div class="upload">
-        <input type="file" accept="video/*" onchange="upload(event,'servis')">
-    </div>
+<button onclick="toggleMenu(this)">👜 ÇANTA</button>
+<div class="submenu">
+    <div onclick="playSingle('canta',0)">👜 Ürün 1</div>
 </div>
 </div>
 
-<!-- ================== DEKOR ================== -->
 <div class="category">
-<button onclick="toggle(this)">🏠 DEKORASYON</button>
-<div class="submenu" id="dekor">
-    <div class="upload">
-        <input type="file" accept="video/*" onchange="upload(event,'dekor')">
-    </div>
+<button onclick="toggleMenu(this)">🚚 EVE SERVİS</button>
+<div class="submenu">
+    <div onclick="playSingle('servis',0)">🚚 Hizmet 1</div>
 </div>
 </div>
 
-<!-- ================== TEKNİK ================== -->
 <div class="category">
-<button onclick="toggle(this)">🔧 TAMİRAT</button>
-<div class="submenu" id="tamir">
-    <div class="upload">
-        <input type="file" accept="video/*" onchange="upload(event,'tamir')">
-    </div>
+<button onclick="toggleMenu(this)">🏠 DEKORASYON</button>
+<div class="submenu">
+    <div onclick="playSingle('dekorasyon',0)">🏠 Ürün 1</div>
 </div>
 </div>
 
-<!-- ================== NAKLİYE ================== -->
 <div class="category">
-<button onclick="toggle(this)">🚚 NAKLİYE</button>
-<div class="submenu" id="nakliye">
-    <div class="upload">
-        <input type="file" accept="video/*" onchange="upload(event,'nakliye')">
-    </div>
+<button onclick="toggleMenu(this)">🔧 TAMİRAT TADİLAT</button>
+<div class="submenu">
+    <div onclick="playSingle('tamir',0)">🔧 Hizmet 1</div>
 </div>
 </div>
 
-<!-- ================== ÜRETİM ================== -->
 <div class="category">
-<button onclick="toggle(this)">🏭 ÜRETİM</button>
-<div class="submenu" id="uretim">
-    <div class="upload">
-        <input type="file" accept="video/*" onchange="upload(event,'uretim')">
-    </div>
+<button onclick="toggleMenu(this)">🛠 TEKNİK SERVİS</button>
+<div class="submenu">
+    <div onclick="playSingle('teknik_servis',0)">🛠 Servis 1</div>
 </div>
 </div>
 
-<!-- ================== MARKET ================== -->
 <div class="category">
-<button onclick="toggle(this)">🛒 MARKET</button>
-<div class="submenu" id="market">
-    <div class="upload">
-        <input type="file" accept="video/*" onchange="upload(event,'market')">
-    </div>
+<button onclick="toggleMenu(this)">🚚 NAKLİYE İLANLARI</button>
+<div class="submenu">
+    <div onclick="playSingle('nakliye',0)">🚚 Hizmet 1</div>
 </div>
 </div>
 
-<!-- ================== KİŞİSEL ================== -->
 <div class="category">
-<button onclick="toggle(this)">🧑 KİŞİSEL REKLAMLAR</button>
-<div class="submenu" id="kisisel">
-    <div class="upload">
-        <input type="file" accept="video/*" onchange="upload(event,'kisisel')">
-    </div>
+<button onclick="toggleMenu(this)">🏭 ÜRETİM</button>
+<div class="submenu">
+    <div onclick="playSingle('uretim',0)">🏭 Firma 1</div>
+</div>
+</div>
+
+<div class="category">
+<button onclick="toggleMenu(this)">🛒 MARKET</button>
+<div class="submenu">
+    <div onclick="playSingle('market',0)">🛒 Ürün 1</div>
+</div>
+</div>
+
+<div class="category">
+<button onclick="toggleMenu(this)">🧑 KİŞİSEL REKLAMLAR</button>
+<div class="submenu">
+    <div onclick="playSingle('kisisel',0)">🧑 Reklam 1</div>
 </div>
 </div>
 
 </div>
 
-<!-- SCREEN -->
 <div class="screen">
-    <video id="player" controls autoplay playsinline></video>
+   <video id="player" controls autoplay></video>
 </div>
 
 </div>
 
 <script>
 
-let ads = {};
-let current = null;
-
-function toggle(btn){
+function toggleMenu(btn){
     let menu = btn.nextElementSibling;
-    menu.style.maxHeight = menu.style.maxHeight ? null : menu.scrollHeight + "px";
+    if(menu.style.maxHeight){
+        menu.style.maxHeight = null;
+    } else {
+        menu.style.maxHeight = menu.scrollHeight + "px";
+    }
 }
 
-function upload(e,cat){
-    let file = e.target.files[0];
-    if(!file) return;
-
-    if(!ads[cat]) ads[cat] = [];
-
-    let url = URL.createObjectURL(file);
-    ads[cat].push(url);
-
-    let div = document.createElement("div");
-    div.className = "item";
-    div.innerText = "▶ Video";
-    div.onclick = () => play(cat, ads[cat].length-1);
-
-    document.getElementById(cat).appendChild(div);
-
-    play(cat, ads[cat].length-1);
+// WHATSAPP
+function reklamVer(){
+    let mesaj = `Merhaba, Dijital Reklam TV üzerinden reklam vermek istiyorum.
+Kategori: ${currentCategory}`;
+    window.open("https://wa.me/905074163605?text=" + encodeURIComponent(mesaj));
 }
 
-function play(cat,i){
-    current = cat;
+// ADS (GÜNCELLENDİ)
+let ads = {
+    araba: [
+        "BELALI.YARIM.mp4",
+        "https://www.w3schools.com/html/mov_bbb.mp4"
+    ],
+    teknoloji: ["https://www.w3schools.com/html/movie.mp4"],
+    trend: ["https://www.w3schools.com/html/movie.mp4"],
+    muzik: ["https://www.w3schools.com/html/movie.mp4"],
+    yerel: [],
+    mobilya: [],
+    aksesuar: [],
+    spor: [],
+    giyim: [],
+    taki: [],
+    canta: [],
+    servis: [],
+    dekorasyon: [],
+    tamir: [],
+    teknik_servis: [],
+    nakliye: [],
+    uretim: [],
+    market: [],
+    kisisel: []
+};
+
+let currentCategory = "araba";
+let index = 0;
+
+// SEÇ
+function playSingle(cat,i){
+    currentCategory = cat;
+    index = i;
+    play();
+}
+
+// OYNAT
+function play(){
     let video = document.getElementById("player");
+    let list = ads[currentCategory];
 
-    if(!ads[cat] || ads[cat].length === 0) return;
+    if(!list || list.length === 0) return;
 
-    video.src = ads[cat][i];
+    video.src = list[index];
     video.play();
 }
 
-function reklamVer(){
-    window.open("https://wa.me/905074163605");
-}
+play();
 
 </script>
 
