@@ -36,6 +36,7 @@ body{
     font-weight:bold;
 }
 
+/* 🔥 TEK BUTON */
 .action{
     background:green;
     color:white;
@@ -81,24 +82,10 @@ button{
     color:white;
     font-size:16px;
     border-radius:6px;
-    text-align:left;
 }
 
 button:hover{
     background:red;
-}
-
-/* 🔥 ALT MENÜ */
-.submenu{
-    display:none;
-    margin-left:10px;
-    margin-top:5px;
-}
-
-.submenu button{
-    background:#222;
-    font-size:14px;
-    margin-top:5px;
 }
 
 video{
@@ -113,53 +100,51 @@ video{
 
 <body>
 
-<header class="topbar">
+<!-- 🔥 HEADER -->
+<header class="topbar"> <header>
+    📺 DİJİTAL REKLAM TV
+    <div style="font-size:12px; font-weight:normal; margin-top:5px;">
+        Dijital Reklam TV ile MARKANIZI DUYURUN ! işletmen, ürünün VE hizmetin doğrudan müşteriye ulaşır.
+    </div>
+</header>
+
     <div class="title">📺 DİJİTAL REKLAM TV</div>
 
+    <!-- 🔥 TEK BUTON -->
     <div class="action" onclick="reklamVer()">
         📢 Reklam Ver / WhatsApp
     </div>
+
 </header>
 
 <div class="container">
 
 <div class="menu">
 
-<h3>📂 Kategoriler</h3>
+    <h3>📂 Kategoriler</h3>
 
-<!-- 🔥 ANA KATEGORİ -->
-<button onclick="toggleMenu('urunler')">🛍 ÜRÜN KATEGORİLERİ</button>
-<div class="submenu" id="urunler">
+    <button onclick="setCategory('trend')">🛍 TREND ÜRÜNLER</button>
+    <button onclick="setCategory('araba')">🚗 OTOMOBİL</button>
+    <button onclick="setCategory('teknoloji')">📱 TEKNOLOJİ ÜRÜNLERİ</button>
+    <button onclick="setCategory('yerel')">🏪 YEREL FİRMALAR</button>
+    <button onclick="setCategory('muzik')">🎵 MÜZİK KLIP TANITIMLARI</button>
 
-    <button onclick="setCategory('trend')">Trend Ürünler</button>
-    <button onclick="setCategory('araba')">Otomobil</button>
-    <button onclick="setCategory('teknoloji')">Teknoloji</button>
-    <button onclick="setCategory('giyim')">Giyim</button>
-    <button onclick="setCategory('taki')">Takı</button>
-    <button onclick="setCategory('canta')">Çanta</button>
+    <hr>
 
-</div>
-
-<button onclick="toggleMenu('hizmet')">🏪 HİZMET KATEGORİLERİ</button>
-<div class="submenu" id="hizmet">
-
-    <button onclick="setCategory('yerel')">Yerel Firmalar</button>
-    <button onclick="setCategory('servis')">Eve Servis</button>
-    <button onclick="setCategory('tamir')">Tamir Tadilat</button>
-    <button onclick="setCategory('teknik_servis')">Teknik Servis</button>
-    <button onclick="setCategory('nakliye')">Nakliye</button>
-
-</div>
-
-<button onclick="toggleMenu('diger')">🎯 DİĞER</button>
-<div class="submenu" id="diger">
-
-    <button onclick="setCategory('muzik')">Müzik Klip</button>
-    <button onclick="setCategory('uretim')">Üretim</button>
-    <button onclick="setCategory('market')">Market</button>
-    <button onclick="setCategory('kisisel')">Kişisel Reklam</button>
-
-</div>
+    <button onclick="setCategory('mobilya')">🪑 MOBİLYA VE AKSESUARLARI</button>
+    <button onclick="setCategory('aksesuar')">⌚ EV VE YAŞAM</button>
+    <button onclick="setCategory('spor')">⚽ SPOR</button>
+    <button onclick="setCategory('giyim')">👕 Giyim</button>
+    <button onclick="setCategory('taki')">💍 TAKI</button>
+    <button onclick="setCategory('canta')">👜 ÇANTA</button>
+    <button onclick="setCategory('servis')"> EVE SERVİS</button>
+    <button onclick="setCategory('dekorasyon')">🏠 DEKORASYON</button>
+    <button onclick="setCategory('tamir')">🔧 TAMİR TADİLAT</button>
+    <button onclick="setCategory('teknik_servis')">🛠 TEKNİK SERVİS</button>
+    <button onclick="setCategory('nakliye')">🚚 NAKLİYE</button>
+    <button onclick="setCategory('uretim')">🏭 ÜRETİM</button>
+    <button onclick="setCategory('market')">🛒 MARKET</button>
+    <button onclick="setCategory('kisisel')">🧑 KİSİSEL REKLAMLKAR</button>
 
 </div>
 
@@ -171,17 +156,7 @@ video{
 
 <script>
 
-function toggleMenu(id){
-    let el = document.getElementById(id);
-
-    if(el.style.display === "block"){
-        el.style.display = "none";
-    } else {
-        el.style.display = "block";
-    }
-}
-
-// WhatsApp
+// 📲 TEK WHATSAPP BUTONU
 function reklamVer(){
 
     let mesaj =
@@ -193,13 +168,21 @@ Kategori: ${currentCategory}`;
     window.open("https://wa.me/" + numara + "?text=" + encodeURIComponent(mesaj), "_blank");
 }
 
-// ADS
+// 📂 KATEGORİ
+function setCategory(cat){
+    currentCategory = cat;
+    index = 0;
+    play();
+}
+
+// 🎥 ADS
 let ads = {
     araba:["https://www.w3schools.com/html/mov_bbb.mp4"],
     teknoloji:["https://www.w3schools.com/html/movie.mp4"],
     trend:[],
     yerel:[],
     muzik:["https://www.w3schools.com/html/movie.mp4"],
+
     mobilya:[],
     aksesuar:[],
     giyim:[],
@@ -217,12 +200,7 @@ let ads = {
 let currentCategory = "araba";
 let index = 0;
 
-function setCategory(cat){
-    currentCategory = cat;
-    index = 0;
-    play();
-}
-
+// ▶️ PLAY
 function play(){
     let list = ads[currentCategory];
     let video = document.getElementById("player");
