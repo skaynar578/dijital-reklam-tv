@@ -12,7 +12,7 @@ const categories = [
     "uretim","market","kisisel","spor"
 ];
 
-// 📁 ADS KLASÖRÜ + JSON DOSYALARI OTOMATİK OLUŞTUR
+// 📁 OTOMATİK DOSYA SİSTEMİ
 function initFolders(){
 
     if(!fs.existsSync("ads")){
@@ -32,23 +32,24 @@ function initFolders(){
 
 initFolders();
 
-// 📥 DOSYA OKU
+// 📥 KATEGORİ YÜKLE
 function loadCategory(cat){
+
     let path = `ads/${cat}.json`;
 
     if(!fs.existsSync(path)){
         fs.writeFileSync(path, "[]");
     }
 
-    return JSON.parse(fs.readFileSync(path));
+    return JSON.parse(fs.readFileSync(path, "utf8"));
 }
 
-// 💾 DOSYA YAZ
+// 💾 KATEGORİ KAYDET
 function saveCategory(cat, data){
     fs.writeFileSync(`ads/${cat}.json`, JSON.stringify(data, null, 2));
 }
 
-// 💰 FİYAT HESAP
+// 💰 FİYAT SİSTEMİ
 function calculatePrice(category, duration){
 
     let base = 170;
@@ -57,19 +58,21 @@ function calculatePrice(category, duration){
         araba: 3,
         teknoloji: 2.5,
         mobilya: 2,
-        tekstil: 2,
         aksesuar: 1.8,
-        bijuteri: 1.8,
+        giyim: 2,
+        takı: 1.8,
         canta: 1.8,
-        teknik: 2.2,
+        servis: 2.2,
         dekorasyon: 2,
         tamir: 2,
-        tasimacilik: 2.5,
+        nakliye: 2.5,
         uretim: 2.3,
         market: 1.5,
         kisisel: 1.5,
         muzik: 2,
-        spor: 2
+        spor: 2,
+        trend: 2,
+        yerel: 1.6
     };
 
     let price = base * (multipliers[category] || 1);
@@ -85,7 +88,9 @@ app.post("/add", (req, res) => {
 
     let cat = req.body.category;
 
-    let price = calculatePrice(cat, req.body.duration);
+    if(!categories.includes(cat)){
+        return res.status(400).json({error:"Geçersiz kategori"});
+    }
 
     let ads = loadCategory(cat);
 
@@ -95,7 +100,7 @@ app.post("/add", (req, res) => {
         category: cat,
         videoUrl: req.body.videoUrl,
         duration: req.body.duration,
-        price: price,
+        price: calculatePrice(cat, req.body.duration),
         createdAt: new Date()
     };
 
@@ -122,10 +127,9 @@ app.get("/ads", (req, res) => {
     res.json(all);
 });
 
-// 📂 KATEGORİYE GÖRE
+// 📂 TEK KATEGORİ
 app.get("/ads/:category", (req, res) => {
-    let data = loadCategory(req.params.category);
-    res.json(data);
+    res.json(loadCategory(req.params.category));
 });
 
 // 📊 KATEGORİ LİSTESİ
@@ -133,7 +137,7 @@ app.get("/categories", (req, res) => {
     res.json(categories);
 });
 
-// 🚀 SERVER START
+// 🚀 SERVER
 app.listen(3000, () => {
-    console.log("🔥 DİJİTAL REKLAM TV PRO SERVER AKTİF");
+    console.log("🔥 DİJİTAL REKLAM TV PRO SERVER AKTİF (PORT 3000)");
 });
