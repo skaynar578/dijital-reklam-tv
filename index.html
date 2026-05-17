@@ -1,163 +1,24 @@
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-<meta charset="UTF-8">
-<title>reklam online</title>
-
-<style>
-
-body{
-    margin:0;
-    font-family:Arial;
-    background:black;
-    color:white;
-    overflow:hidden;
-    padding-top:60px;
-}
-
-/* HEADER */
-.topbar{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:60px;
-    background:#111;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:0 15px;
-    box-sizing:border-box;
-    z-index:9999;
-}
-
-.title{
-    font-size:20px;
-    font-weight:bold;
-}
-
-.action{
-    background:green;
-    color:white;
-    padding:8px 14px;
-    border-radius:6px;
-    font-weight:bold;
-    font-size:14px;
-    cursor:pointer;
-}
-
-/* LAYOUT */
-.container{
-    display:flex;
-    height:calc(100vh - 60px);
-    position:fixed;
-    width:100%;
-}
-
-.menu{
-    width:25%;
-    background:#1a1a1a;
-    padding:15px;
-    box-sizing:border-box;
-    overflow-y:auto;
-}
-
-.screen{
-    width:75%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background:black;
-}
-
-/* KATEGORİ */
-.category{
-    margin-top:10px;
-}
-
-.category button{
-    width:100%;
-    padding:12px;
-    border:none;
-    background:#333;
-    color:white;
-    font-size:16px;
-    border-radius:6px;
-    cursor:pointer;
-}
-
-.category button:hover{
-    background:red;
-}
-
-/* ALT KUTULAR */
-.submenu{
-    max-height:0;
-    overflow:hidden;
-    transition:0.3s;
-}
-
-.submenu div{
-    background:#222;
-    padding:10px;
-    margin-top:5px;
-    border-radius:6px;
-    cursor:pointer;
-    font-size:14px;
-}
-
-.submenu div:hover{
-    background:green;
-}
-
-video{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    pointer-events:none;
-}
-
-</style>
-</head>
-
-<body>
-
-<header class="topbar">
-    <div class="title">📺reklam online DİJİTAL REKLAM </div>
-    <div class="action" onclick="reklamVer()">📢 Reklam Ver / WhatsApp</div>
-</header>
-
-<div class="container">
-
-<div class="menu">
-
-<h3>📂 Kategoriler</h3>
-
 <!-- TREND -->
 <div class="category">
-<button onclick="toggleMenu(this)">🛍 TREND ÜRÜNLER</button>
-<div class="submenu">
-    <div onclick="playSingle('trend',0)">🔥 Trend Reklam 1</div>
-    <div onclick="playSingle('trend',1)">🔥 Trend Reklam 2</div>
+    <button onclick="toggleMenu(this)">🛍 TREND ÜRÜNLER</button>
+    <div class="submenu">
+        <div onclick="playSingle('trend',0)">🛍 Trend Reklam 1</div>
+    </div>
 </div>
-</div>
-
-
 
 <!-- TEKNOLOJİ -->
 <div class="category">
-<button onclick="toggleMenu(this)">📱 TEKNOLOJİ ÜRÜNLERİ</button>
-<div class="submenu">
-    <div onclick="playSingle('teknoloji',0)">📱 </div>
+    <button onclick="toggleMenu(this)">📱 TEKNOLOJİ ÜRÜNLERİ</button>
+    <div class="submenu">
+        <div onclick="playSingle('teknoloji',0)">📱 Teknoloji Reklam 1</div>
+    </div>
 </div>
-</div>
-
 
 <!-- MÜZİK -->
 <div class="category">
     <button onclick="toggleMenu(this)">🎵 MÜZİK PİYASASI</button>
     <div class="submenu">
-        <div onclick="playSingle('muzik',0)">🎵 Müzik Reklam 1</div>
+        <div onclick="playSingle('muzik',0)">🎵 Klip 1</div>
     </div>
 </div>
 
@@ -173,187 +34,118 @@ video{
 <div class="category">
     <button onclick="toggleMenu(this)">🚗 OTOMOBİL ALIM-SATIM</button>
     <div class="submenu">
-        <div onclick="playSingle('araba',0)">🚗 OTOMOBİL ALIM-SATIM 1</div>
+        <div onclick="playSingle('araba',0)">🚗 Araba Reklam 1</div>
     </div>
-</div>
-
-      
-    <div onclick="playSingle('muzik',0)">🎵 Klip 1</div>
-</div>
 </div>
 
 <!-- MOBİLYA -->
 <div class="category">
-<button onclick="toggleMenu(this)">🪑 MOBİLYA VE AKSESUARLARI</button>
-<div class="submenu">
-    <div onclick="playSingle('mobilya',0)">🪑 Ürün 1</div>
-</div>
+    <button onclick="toggleMenu(this)">🪑 MOBİLYA VE AKSESUARLARI</button>
+    <div class="submenu">
+        <div onclick="playSingle('mobilya',0)">🪑 Ürün 1</div>
+    </div>
 </div>
 
 <!-- EV YAŞAM -->
 <div class="category">
-<button onclick="toggleMenu(this)">⌚ EV VE YAŞAM</button>
-<div class="submenu">
-    <div onclick="playSingle('aksesuar',0)">⌚ Ürün 1</div>
-</div>
+    <button onclick="toggleMenu(this)">⌚ EV VE YAŞAM</button>
+    <div class="submenu">
+        <div onclick="playSingle('aksesuar',0)">⌚ Ürün 1</div>
+    </div>
 </div>
 
 <!-- SPOR -->
 <div class="category">
-<button onclick="toggleMenu(this)">⚽ SPOR</button>
-<div class="submenu">
-    <div onclick="playSingle('spor',0)">⚽ Ürün 1</div>
-</div>
+    <button onclick="toggleMenu(this)">⚽ SPOR</button>
+    <div class="submenu">
+        <div onclick="playSingle('spor',0)">⚽ Ürün 1</div>
+    </div>
 </div>
 
 <!-- GİYİM -->
 <div class="category">
-<button onclick="toggleMenu(this)">👕 GİYİM VE TEXTİL</button>
-<div class="submenu">
-    <div onclick="playSingle('giyim',0)">👕 Ürün 1</div>
-</div>
+    <button onclick="toggleMenu(this)">👕 GİYİM VE TEXTİL</button>
+    <div class="submenu">
+        <div onclick="playSingle('giyim',0)">👕 Ürün 1</div>
+    </div>
 </div>
 
 <!-- TAKI -->
 <div class="category">
-<button onclick="toggleMenu(this)">💍 TAKI</button>
-<div class="submenu">
-    <div onclick="playSingle('taki',0)">💍 Ürün 1</div>
-</div>
+    <button onclick="toggleMenu(this)">💍 TAKI</button>
+    <div class="submenu">
+        <div onclick="playSingle('taki',0)">💍 Ürün 1</div>
+    </div>
 </div>
 
 <!-- ÇANTA -->
 <div class="category">
-<button onclick="toggleMenu(this)">👜 ÇANTA</button>
-<div class="submenu">
-    <div onclick="playSingle('canta',0)">👜 Ürün 1</div>
-</div>
+    <button onclick="toggleMenu(this)">👜 ÇANTA</button>
+    <div class="submenu">
+        <div onclick="playSingle('canta',0)">👜 Ürün 1</div>
+    </div>
 </div>
 
 <!-- SERVİS -->
 <div class="category">
-<button onclick="toggleMenu(this)">🚚 EVE SERVİS</button>
-<div class="submenu">
-    <div onclick="playSingle('servis',0)">🚚 Hizmet 1</div>
-</div>
+    <button onclick="toggleMenu(this)">🚚 EVE SERVİS</button>
+    <div class="submenu">
+        <div onclick="playSingle('servis',0)">🚚 Hizmet 1</div>
+    </div>
 </div>
 
 <!-- DEKORASYON -->
 <div class="category">
-<button onclick="toggleMenu(this)">🏠 DEKORASYON</button>
-<div class="submenu">
-    <div onclick="playSingle('dekorasyon',0)">🏠 Ürün 1</div>
-</div>
+    <button onclick="toggleMenu(this)">🏠 DEKORASYON</button>
+    <div class="submenu">
+        <div onclick="playSingle('dekorasyon',0)">🏠 Ürün 1</div>
+    </div>
 </div>
 
 <!-- TAMİR -->
 <div class="category">
-<button onclick="toggleMenu(this)">🔧 TAMİR TADİLAT</button>
-<div class="submenu">
-    <div onclick="playSingle('tamir',0)">🔧 Hizmet 1</div>
-</div>
+    <button onclick="toggleMenu(this)">🔧 TAMİR TADİLAT</button>
+    <div class="submenu">
+        <div onclick="playSingle('tamir',0)">🔧 Hizmet 1</div>
+    </div>
 </div>
 
 <!-- TEKNİK SERVİS -->
 <div class="category">
-<button onclick="toggleMenu(this)">🛠 TEKNİK SERVİS</button>
-<div class="submenu">
-    <div onclick="playSingle('teknik_servis',0)">🛠 Servis 1</div>
-</div>
+    <button onclick="toggleMenu(this)">🛠 TEKNİK SERVİS</button>
+    <div class="submenu">
+        <div onclick="playSingle('teknik_servis',0)">🛠 Servis 1</div>
+    </div>
 </div>
 
 <!-- NAKLİYE -->
 <div class="category">
-<button onclick="toggleMenu(this)">🚚 NAKLİYE</button>
-<div class="submenu">
-    <div onclick="playSingle('nakliye',0)">🚚 Hizmet 1</div>
-</div>
+    <button onclick="toggleMenu(this)">🚚 NAKLİYE</button>
+    <div class="submenu">
+        <div onclick="playSingle('nakliye',0)">🚚 Hizmet 1</div>
+    </div>
 </div>
 
 <!-- ÜRETİM -->
 <div class="category">
-<button onclick="toggleMenu(this)">🏭 ÜRETİM</button>
-<div class="submenu">
-    <div onclick="playSingle('uretim',0)">🏭 Firma 1</div>
-</div>
+    <button onclick="toggleMenu(this)">🏭 ÜRETİM</button>
+    <div class="submenu">
+        <div onclick="playSingle('uretim',0)">🏭 Firma 1</div>
+    </div>
 </div>
 
 <!-- MARKET -->
 <div class="category">
-<button onclick="toggleMenu(this)">🛒 MARKET</button>
-<div class="submenu">
-    <div onclick="playSingle('market',0)">🛒 Ürün 1</div>
-</div>
+    <button onclick="toggleMenu(this)">🛒 MARKET</button>
+    <div class="submenu">
+        <div onclick="playSingle('market',0)">🛒 Ürün 1</div>
+    </div>
 </div>
 
 <!-- KİŞİSEL -->
 <div class="category">
-<button onclick="toggleMenu(this)">🧑 KİŞİSEL REKLAMLAR</button>
-<div class="submenu">
-    <div onclick="playSingle('kisisel',0)">🧑 Reklam 1</div>
+    <button onclick="toggleMenu(this)">🧑 KİŞİSEL REKLAMLAR</button>
+    <div class="submenu">
+        <div onclick="playSingle('kisisel',0)">🧑 Reklam 1</div>
+    </div>
 </div>
-</div>
-
-    
-</div>
-
-<div class="screen">
-    <video id="player" autoplay muted></video>
-</div>
-
-</div>
-
-<script>
-
-function toggleMenu(btn){
-    let menu = btn.nextElementSibling;
-
-    if(menu.style.maxHeight){
-        menu.style.maxHeight = null;
-    } else {
-        menu.style.maxHeight = menu.scrollHeight + "px";
-    }
-}
-
-// WHATSAPP
-function reklamVer(){
-    let mesaj = `Merhaba, Dijital Reklam TV üzerinden reklam vermek istiyorum.
-Kategori: ${currentCategory}`;
-    window.open("https://wa.me/905074163605?text=" + encodeURIComponent(mesaj));
-}
-
-// ADS
-let ads = {
-    araba:["https://www.w3schools.com/html/mov_bbb.mp4"],
-    teknoloji:["https://www.w3schools.com/html/movie.mp4"],
-    trend:["https://www.w3schools.com/html/movie.mp4"],
-    muzik:["https://www.w3schools.com/html/movie.mp4"]
-};
-
-let currentCategory = "araba";
-let index = 0;
-
-// TEK VİDEO SEÇ
-function playSingle(cat,i){
-    currentCategory = cat;
-    index = i;
-    play();
-}
-
-// PLAY
-function play(){
-    let list = ads[currentCategory];
-    let video = document.getElementById("player");
-
-    if(!list || list.length === 0) return;
-
-    video.src = list[index];
-    video.play();
-}
-
-play();
-
-</script>
-
-</body>
-</html>
