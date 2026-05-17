@@ -135,7 +135,9 @@ video{
 
 <div class="category">
 <button onclick="toggleMenu(this)">🛍 TREND ÜRÜNLER</button>
-<div class="submenu">
+<div class="submenu"><div class="upload">
+    <input type="file" accept="video/*" onchange="uploadVideo(event,'trend')">
+</div>
     <div onclick="playSingle('trend',0)">🔥 Trend Reklam 1</div>
 </div>
 </div>
