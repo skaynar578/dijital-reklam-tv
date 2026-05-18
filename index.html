@@ -279,7 +279,11 @@ video{
 // MENÜ
 function toggleMenu(btn){
     let menu = btn.nextElementSibling;
-    menu.style.maxHeight = menu.style.maxHeight ? null : menu.scrollHeight + "px";
+    if(menu.style.maxHeight){
+        menu.style.maxHeight = null;
+    } else {
+        menu.style.maxHeight = menu.scrollHeight + "px";
+    }
 }
 
 // WHATSAPP
@@ -289,7 +293,7 @@ Kategori: ${currentCategory}`;
     window.open("https://wa.me/905074163605?text=" + encodeURIComponent(mesaj));
 }
 
-// 🔥 VİDEOLAR
+// VİDEOLAR
 let ads = {
     araba: [
         "https://www.w3schools.com/html/mov_bbb.mp4",
@@ -322,48 +326,57 @@ let ads = {
 };
 
 let currentCategory = "araba";
+let index = 0;
 
 let timer = null;
 
-// 🔀 RANDOM INDEX
-function getRandomIndex(list){
-    return Math.floor(Math.random() * list.length);
-}
-
 // SEÇ
-function playSingle(cat){
+function playSingle(cat,i){
     currentCategory = cat;
+    index = i;
     play();
 }
 
-// 🔥 TV PLAY
+// 🔥 TV OYNATICI
 function play(){
     let video = document.getElementById("player");
     let list = ads[currentCategory];
 
     if(!list || list.length === 0){
-        console.log("Boş kategori");
         return;
     }
 
-    let i = getRandomIndex(list);
-
-    video.src = list[i];
+    video.src = list[index];
     video.play().catch(()=>{});
 
+    // eski timer temizle
     if(timer) clearTimeout(timer);
 
-    // 🔥 8–12 saniye arası rastgele değişim (gerçek TV hissi)
-    let delay = 8000 + Math.random() * 4000;
-
-    timer = setTimeout(play, delay);
+    // 🔥 10 saniyede bir değiştir (TV sistemi)
+    timer = setTimeout(nextVideo, 10000);
 }
 
-// SAYFA AÇILINCA
+// 🔥 SONRAKİ VİDEO
+function nextVideo(){
+    let list = ads[currentCategory];
+
+    if(!list || list.length === 0) return;
+
+    index++;
+
+    if(index >= list.length){
+        index = 0;
+    }
+
+    play();
+}
+
+// SAYFA AÇILINCA BAŞLAT
 document.addEventListener("DOMContentLoaded", function(){
     setTimeout(play, 300);
 });
 
 </script>
+    
 </body>
 </html>
