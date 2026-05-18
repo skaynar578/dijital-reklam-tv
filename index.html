@@ -276,6 +276,7 @@ video{
 
 <script>
 
+// MENÜ (AYNI)
 function toggleMenu(btn){
     let menu = btn.nextElementSibling;
     if(menu.style.maxHeight){
@@ -285,21 +286,30 @@ function toggleMenu(btn){
     }
 }
 
-// WHATSAPP
+// WHATSAPP (AYNI)
 function reklamVer(){
     let mesaj = `Merhaba, Dijital Reklam TV üzerinden reklam vermek istiyorum.
 Kategori: ${currentCategory}`;
     window.open("https://wa.me/905074163605?text=" + encodeURIComponent(mesaj));
 }
 
-// ✅ TÜM KATEGORİLER AYNI - SADECE YOLLAR DÜZELTİLDİ
+// 🔥 TÜM VİDEOLAR (İSTEDİĞİN KADAR EKLE)
 let ads = {
     araba: [
-        "reklamlar/BELALI.YARIM.mp4"
+        "reklamlar/BELALI.YARIM.mp4",
+        "reklamlar/araba2.mp4",
+        "reklamlar/araba3.mp4"
     ],
-    teknoloji: ["reklamlar/teknoloji1.mp4"],
-    trend: ["reklamlar/trend1.mp4"],
-    muzik: ["reklamlar/klip1.mp4"],
+    teknoloji: [
+        "reklamlar/teknoloji1.mp4",
+        "reklamlar/teknoloji2.mp4"
+    ],
+    trend: [
+        "reklamlar/trend1.mp4"
+    ],
+    muzik: [
+        "reklamlar/klip1.mp4"
+    ],
     yerel: [],
     mobilya: [],
     aksesuar: [],
@@ -320,14 +330,14 @@ let ads = {
 let currentCategory = "araba";
 let index = 0;
 
-// SEÇ
+// 👉 SEÇİNCE BAŞA SAR + OTOMATİK BAŞLASIN
 function playSingle(cat,i){
     currentCategory = cat;
     index = i;
     play();
 }
 
-// OYNAT
+// 🔥 ANA OYNATICI (TV SİSTEMİ)
 function play(){
     let video = document.getElementById("player");
     let list = ads[currentCategory];
@@ -340,12 +350,27 @@ function play(){
     video.src = list[index];
 
     video.onerror = function(){
-        alert("Video bulunamadı! Dosya yolunu kontrol et.");
+        alert("Video bulunamadı!");
     }
 
     video.play();
 }
 
+// 🔥 OTOMATİK DÖNGÜ (EN KRİTİK KISIM)
+document.getElementById("player").addEventListener("ended", function(){
+    let list = ads[currentCategory];
+
+    index++;
+
+    // sona geldiyse başa dön
+    if(index >= list.length){
+        index = 0;
+    }
+
+    play();
+});
+
+// İLK BAŞLAT
 play();
 
 </script>
