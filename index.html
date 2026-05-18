@@ -337,43 +337,61 @@ function playSingle(cat,i){
     play();
 }
 
-// 🔥 ANA OYNATICI (TV SİSTEMİ)
+<script>
+
+<script>
+
+// 🔥 ANA OYNATICI
 function play(){
     let video = document.getElementById("player");
     let list = ads[currentCategory];
 
     if(!list || list.length === 0){
-        alert("Bu kategoride video yok!");
         return;
     }
 
+    video.onerror = null;
+
     video.src = list[index];
 
-    video.onerror = function(){
-        alert("Video bulunamadı!");
-    }
+    video.onloadeddata = function(){
+        video.play().catch(() => {});
+    };
 
-    video.play();
+    video.onerror = function(){
+        console.log("Video hatalı:", video.src);
+
+        // ❗ HATALI VİDEOYU ATLA
+        index++;
+
+        if(index >= list.length){
+            index = 0;
+        }
+
+        play();
+    }
 }
 
-// 🔥 OTOMATİK DÖNGÜ (EN KRİTİK KISIM)
-document.getElementById("player").addEventListener("ended", function(){
-    let list = ads[currentCategory];
+// 🔥 SAYFA YÜKLENDİKTEN SONRA
+window.onload = function(){
 
-    index++;
+    let video = document.getElementById("player");
 
-    // sona geldiyse başa dön
-    if(index >= list.length){
-        index = 0;
-    }
+    // 🔁 OTOMATİK DÖNGÜ
+    video.addEventListener("ended", function(){
+        let list = ads[currentCategory];
 
-    play();
-});
+        index++;
 
-// İLK BAŞLAT
-play();
+        if(index >= list.length){
+            index = 0;
+        }
+
+        play();
+    });
+
+    // ▶️ İLK BAŞLAT
+    setTimeout(play, 300);
+};
 
 </script>
-
-</body>
-</html>
