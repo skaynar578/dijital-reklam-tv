@@ -361,9 +361,7 @@ function play(){
     video.onerror = function(){
         console.log("Video hatalı:", video.src);
 
-        // ❗ HATALI VİDEOYU ATLA
         index++;
-
         if(index >= list.length){
             index = 0;
         }
@@ -372,8 +370,8 @@ function play(){
     }
 }
 
-// 🔥 SAYFA YÜKLENDİKTEN SONRA
-window.onload = function(){
+// 🔥 SAYFA HAZIR OLUNCA (DOĞRU YÖNTEM)
+document.addEventListener("DOMContentLoaded", function(){
 
     let video = document.getElementById("player");
 
@@ -390,8 +388,8 @@ window.onload = function(){
         play();
     });
 
-    // ▶️ İLK BAŞLAT
+    // ▶️ BAŞLAT
     setTimeout(play, 300);
-};
+});
 
 </script>
